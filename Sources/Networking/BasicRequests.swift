@@ -6,9 +6,7 @@
 //
 
 import Foundation
-import UIKit
 
-@available(iOS 13.0.0, *)
 struct Request {
     
     static func get<R: Codable>(url: String, authToken: String? = nil) async -> R? {

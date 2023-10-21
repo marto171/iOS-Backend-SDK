@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "iOS-Backend-SDK",
+    platforms: [
+        .iOS(.v16)
+    ],
     products: [
         .library(
             name: "iOS-Backend-SDK",

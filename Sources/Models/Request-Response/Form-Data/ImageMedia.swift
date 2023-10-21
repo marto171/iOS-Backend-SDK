@@ -1,8 +1,8 @@
 //
 //  ImageMedia.swift
+//  AppTemplate
 //
-//
-//  Created by Martin on 20.10.23.
+//  Created by Kaloyan Petkov on 3.10.23.
 //
 
 import Foundation
