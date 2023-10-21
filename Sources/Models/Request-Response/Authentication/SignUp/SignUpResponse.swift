@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SignUpResponse: Codable {
-    let status: String
-    let message: String
+public struct SignUpResponse: Codable {
+    public let status: String
+    public let message: String
 }

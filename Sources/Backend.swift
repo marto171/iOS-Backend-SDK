@@ -5,15 +5,15 @@
 //  Created by Martin on 20.10.23.
 //
 
+import Foundation
 
 @MainActor public struct Backend {
-    static let main: Backend = Backend()
+    public static var shared: Backend = Backend()
     
-    func login(config: Config, body: LoginRequest) async {
-        let response: LoginResponse? = await Request.post(url: "\(config.baseUrl)/\(config.language)/api/v2/user/login", body: body)
-        
-        if let res = response {
-            print(res)
-        }
-    }
+    let noConfigError = BackendError(type: .Custom, localizedDescription: "No config object provided")
+    let noAPIConnectionError = BackendError(type: .Custom, localizedDescription: "Error connecting to API!")
+    public var config: BackendConfig?
+    
+    private init() {}
+    
 }

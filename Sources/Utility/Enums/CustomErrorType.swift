@@ -7,14 +7,21 @@
 
 import Foundation
 
-public enum CustomTypeError: Error {
+public enum BackendErrorType: Error {
+    case Custom // error that is not defined
+    
     case APIConnectionError
     case FetchUserFromDbFail
     case ServerConnectionError
     case UpdatePasswordFail
+    
+    case SignUpFail
+    
     case EmailResendFail
     case ConfirmEmailResendFail
+    
     case RestorePasswordFail
+    
     case NoActiveUser
     case DataRefreshError
     case SaveProfileSettingsFail

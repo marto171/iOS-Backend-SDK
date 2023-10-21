@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct LoginResponse: Codable {
-    let status: String
-    let message: String
-    let identifier: String?
+public struct LoginResponse: Codable {
+    public let status: String
+    public let message: String
+    public let identifier: String?
 }
