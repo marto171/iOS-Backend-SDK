@@ -12,7 +12,7 @@ extension Backend {
         if let config = self.config {
             let response: LoginResponse? = await Request.post(url: "\(config.baseUrl)/\(config.language)/api/v2/user/login", body: LoginRequest(email: email, password: password))
             guard let response = response else {
-                callback(.failure(config.getError(.APIConnectionError) ?? self.noAPIConnectionError))
+                callback(.failure(config.getError(.APIConnectionError) ?? K.noAPIConnectionError))
                 return
             }
             
@@ -33,7 +33,7 @@ extension Backend {
             }
             callback(.failure(BackendError(type: .Custom, localizedDescription: response.message)))
         } else {
-            callback(.failure(self.noConfigError))
+            callback(.failure(K.noConfigError))
         }
     }
 }

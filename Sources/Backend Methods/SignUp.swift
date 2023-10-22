@@ -12,7 +12,7 @@ extension Backend {
         if let config = config {
             let response: SignUpResponse? = await Request.post(url: "\(config.baseUrl)/\(config.language)/api/v2/user/signup", body: SignUpRequest(name: name, email: email, password: password, passwordConfirm: confirmPassword))
             guard let response = response else {
-                callback(.failure(config.getError(.APIConnectionError) ?? self.noAPIConnectionError))
+                callback(.failure(config.getError(.APIConnectionError) ?? K.noAPIConnectionError))
                 return
             }
             
@@ -24,7 +24,7 @@ extension Backend {
             }
             
         } else {
-            callback(.failure(self.noConfigError))
+            callback(.failure(K.noConfigError))
         }
     }
 }

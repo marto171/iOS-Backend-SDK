@@ -12,7 +12,7 @@ extension Backend {
         if let config = config {
             let response: ResendConfirmEmailResponse? = await Request.post(url: "\(config.baseUrl)/\(config.language)/api/v2/user/email/resend", body: ResendConfirmEmailRequest(email: email))
             guard let response = response else {
-                return .failure(config.getError(.APIConnectionError) ?? self.noAPIConnectionError)
+                return .failure(config.getError(.APIConnectionError) ?? K.noAPIConnectionError)
             }
             
             switch response.status {
@@ -22,7 +22,7 @@ extension Backend {
                 return .failure(config.getError(.ConfirmEmailResendFail) ?? BackendError(type: .Custom, localizedDescription: response.message))
             }
         } else {
-            return .failure(self.noConfigError)
+            return .failure(K.noConfigError)
         }
     }
 }

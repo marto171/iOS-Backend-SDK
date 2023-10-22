@@ -4,13 +4,12 @@ import iOS_Backend_SDK
 @MainActor
 final class LoginTest: XCTestCase {
     func testExample() async throws {
-        print("SIGNUP")
         print("START PROGRAM")
-        print("--------------------------------------------")
-        print("--------------------------------------------")
-        print("--------------------------------------------")
-        print("--------------------------------------------")
-        print("--------------------------------------------")
+        print("------------------LOGIN--------------------")
+        print("------------------LOGIN--------------------")
+        print("------------------LOGIN--------------------")
+        print("------------------LOGIN--------------------")
+        print("------------------LOGIN--------------------")
         
         let config = BackendConfig(baseUrl: "https://api.wellsavor.com", language: "en", errors: [BackendError(type: .APIConnectionError, localizedDescription: "No API Connection")])
         
@@ -26,11 +25,11 @@ final class LoginTest: XCTestCase {
             }
         }
         
-        print("--------------------------------------------")
-        print("--------------------------------------------")
-        print("--------------------------------------------")
-        print("--------------------------------------------")
-        print("--------------------------------------------")
+        print("------------------LOGIN--------------------")
+        print("------------------LOGIN--------------------")
+        print("------------------LOGIN--------------------")
+        print("------------------LOGIN--------------------")
+        print("------------------LOGIN--------------------")
         print("END PROGRAM")
     }
 }
