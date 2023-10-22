@@ -2,16 +2,16 @@ import XCTest
 import iOS_Backend_SDK
 
 @MainActor
-final class SignupTest: XCTestCase {
+final class LoginConfirmTest: XCTestCase {
     func testExample() async throws {
         print("START PROGRAM")
-        print("------------------SIGNUP--------------------")
-        print("------------------SIGNUP--------------------")
-        print("------------------SIGNUP--------------------")
-        print("------------------SIGNUP--------------------")
-        print("------------------SIGNUP--------------------")
+        print("------------------LOGINCONFIRM--------------------")
+        print("------------------LOGINCONFIRM--------------------")
+        print("------------------LOGINCONFIRM--------------------")
+        print("------------------LOGINCONFIRM--------------------")
+        print("------------------LOGINCONFIRM--------------------")
         
-        Backend.shared.config = BackendConfig(baseUrl: "https://api.wellsavor.com", language: "de", errors: [
+        Backend.shared.config = BackendConfig(baseUrl: "https://api.wellsavor.com", language: "en", errors: [
             BackendError(type: .EmailAlreadyExists, localizedDescription: [
                 LocalizedError(language: "en", localizedDescription: "Working email already exists."),
                 LocalizedError(language: "bg", localizedDescription: "Работи email already exists."),
@@ -24,20 +24,20 @@ final class SignupTest: XCTestCase {
             ])
         ])
         
-        await Backend.shared.signUp(name: "Martin", email: "georgievmarti21@gmail.com", password: "123Prudni@", confirmPassword: "123Prudni@") { status in
+        await Backend.shared.loginConfirm(email: "georgievmarti21@gmail.com", token: "9480fc42d0f40519d4bb39ad8de8d305075469d897b43e5a3f8f24d1077ed8ee") { status in
             switch status {
             case .success(let response):
-                print(response.message)
+                print(response)
             case .failure(let error):
                 print(error)
             }
         }
         
-        print("------------------SIGNUP--------------------")
-        print("------------------SIGNUP--------------------")
-        print("------------------SIGNUP--------------------")
-        print("------------------SIGNUP--------------------")
-        print("------------------SIGNUP--------------------")
+        print("------------------LOGINCONFIRM--------------------")
+        print("------------------LOGINCONFIRM--------------------")
+        print("------------------LOGINCONFIRM--------------------")
+        print("------------------LOGINCONFIRM--------------------")
+        print("------------------LOGINCONFIRM--------------------")
         print("END PROGRAM")
     }
 }

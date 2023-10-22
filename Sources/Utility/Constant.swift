@@ -8,6 +8,12 @@
 import Foundation
 
 public struct K {
-    static let noConfigError = BackendError(type: .Custom, localizedDescription: "No config object provided.")
-    static let noAPIConnectionError = BackendError(type: .Custom, localizedDescription: "Error connecting to API!")
+    struct SDKMessage {
+        static let genericMessage = "Uh-oh! Something went wrong. Please try again later!"
+    }
+    
+    struct SDKError {
+        static let noConfigError = BackendError(type: .Custom, localizedDescription: "No config object provided.")
+        static let noAPIConnectionError = BackendError(type: .Custom, localizedDescription: "Error connecting to API!")
+    }
 }

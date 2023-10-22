@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  
+//  ResendEmail.swift
+//
 //
 //  Created by Kaloyan Petkov on 21.10.23.
 //
@@ -10,13 +10,13 @@ import Foundation
 extension Backend {
     func resendEmail(email: String) async -> Result<ResendConfirmEmailResponse, BackendError<String>> {
         guard let config = self.config else {
-            return .failure(K.noConfigError)
+            return .failure(K.SDKError.noConfigError)
         }
         
         let response: ResendConfirmEmailResponse? = await Request.post(url: "\(config.baseUrl)/\(config.language)/api/v2/user/email/resend", body: ResendConfirmEmailRequest(email: email))
         
         guard let response = response else {
-            return .failure(K.noAPIConnectionError)
+            return .failure(K.SDKError.noAPIConnectionError)
         }
         
         switch response.status {

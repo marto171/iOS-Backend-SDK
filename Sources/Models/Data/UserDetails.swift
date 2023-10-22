@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct UserDetails: Codable {
-    let userId: String
-    let targetCalories: Double
-    let diet: String
-    let allergens: [String]
-    let metricSystem: String
+public struct UserDetails: Codable {
+    public let userId: String
+    public let targetCalories: Double
+    public let diet: String
+    public let allergens: [String]
+    public let metricSystem: String
 }

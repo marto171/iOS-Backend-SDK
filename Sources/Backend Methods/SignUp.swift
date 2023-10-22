@@ -1,5 +1,5 @@
 //
-//  SignUp.swift
+//  Signup.swift
 //
 //
 //  Created by Kaloyan Petkov on 21.10.23.
@@ -10,14 +10,14 @@ import Foundation
 extension Backend {
     public func signUp(name: String, email: String, password: String, confirmPassword: String, callback: (Result<SignUpResponse, BackendError<String>>) -> Void) async {
         guard let config = self.config else {
-            callback(.failure(K.noConfigError))
+            callback(.failure(K.SDKError.noConfigError))
             return
         }
         
         let response: SignUpResponse? = await Request.post(url: "\(config.baseUrl)/\(config.language)/api/v2/user/signup", body: SignUpRequest(name: name, email: email, password: password, passwordConfirm: confirmPassword))
         
         guard let response = response else {
-            callback(.failure(K.noAPIConnectionError))
+            callback(.failure(K.SDKError.noAPIConnectionError))
             return
         }
         

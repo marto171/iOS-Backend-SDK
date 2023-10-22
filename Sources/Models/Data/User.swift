@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct User: Codable {
-    let _id: String
-    var token: String?
-    var name: String
-    var email: String
-    var photo: String
-    var details: UserDetails?
+public struct User: Codable {
+    public let _id: String
+    public var token: String?
+    public var name: String
+    public var email: String
+    public var photo: String
+    public var details: UserDetails?
 }
