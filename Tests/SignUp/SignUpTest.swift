@@ -4,15 +4,15 @@ import iOS_Backend_SDK
 @MainActor
 final class SignUpTest: XCTestCase {
     func testExample() async throws {
-        
         print("SIGNUP")
-        
         print("START PROGRAM")
-        print("----------------------")
+        print("--------------------------------------------")
+        print("--------------------------------------------")
+        print("--------------------------------------------")
+        print("--------------------------------------------")
+        print("--------------------------------------------")
         
         let config = BackendConfig(baseUrl: "https://api.wellsavor.com", language: "en", errors: [BackendError(type: .APIConnectionError, localizedDescription: "No API Connection")])
-        
-        print(config.baseUrl)
         
         Backend.shared.config = config
         
@@ -26,8 +26,11 @@ final class SignUpTest: XCTestCase {
             }
         }
         
-        
-        print("----------------------")
+        print("--------------------------------------------")
+        print("--------------------------------------------")
+        print("--------------------------------------------")
+        print("--------------------------------------------")
+        print("--------------------------------------------")
         print("END PROGRAM")
     }
 }
