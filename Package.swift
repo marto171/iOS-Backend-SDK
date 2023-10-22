@@ -17,7 +17,7 @@ let package = Package(
         .target(
             name: "iOS-Backend-SDK"),
         .testTarget(
-            name: "Login",
+            name: "SignUp",
             dependencies: ["iOS-Backend-SDK"]),
     ]
 )

@@ -11,9 +11,18 @@ final class SignUpTest: XCTestCase {
         print("------------------SIGNUP--------------------")
         print("------------------SIGNUP--------------------")
         
-        let config = BackendConfig(baseUrl: "https://api.wellsavor.com", language: "en", errors: [BackendError(type: .APIConnectionError, localizedDescription: "No API Connection")])
-        
-        Backend.shared.config = BackendConfig(baseUrl: "https://api.wellsavor.com", language: "en", errors: [])
+        Backend.shared.config = BackendConfig(baseUrl: "https://api.wellsavor.com", language: "de", errors: [
+            BackendError(type: .EmailAlreadyExists, localizedDescription: [
+                LocalizedError(language: "en", localizedDescription: "Working email already exists."),
+                LocalizedError(language: "bg", localizedDescription: "Работи email already exists."),
+                LocalizedError(language: "de", localizedDescription: "Arbeitet email already exists.")
+            ]),
+            BackendError(type: .IncorrectCredentials, localizedDescription: [
+                LocalizedError(language: "en", localizedDescription: "Working email or password is not correct!"),
+                LocalizedError(language: "bg", localizedDescription: "Работи email or password is not correct!"),
+                LocalizedError(language: "de", localizedDescription: "Arbeitet email or password is not correct!")
+            ])
+        ])
         
         await Backend.shared.signUp(name: "Martin", email: "georgievmarti21@gmail.com", password: "123Prudni@", confirmPassword: "123Prudni@") { status in
             switch status {
