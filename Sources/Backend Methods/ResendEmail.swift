@@ -16,14 +16,14 @@ extension Backend {
         let response: ResendConfirmEmailResponse? = await Request.post(url: "\(config.baseUrl)/\(config.language)/api/v2/user/email/resend", body: ResendConfirmEmailRequest(email: email))
         
         guard let response = response else {
-            return .failure(config.getError(.APIConnectionError) ?? K.noAPIConnectionError)
+            return .failure(K.noAPIConnectionError)
         }
         
         switch response.status {
         case "success":
             return .success(response)
         default:
-            return .failure(config.getError(.ConfirmEmailResendFail) ?? BackendError(type: .Custom, localizedDescription: response.message))
+            return .failure(config.getError(BackendErrorType(rawValue: response.identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: response.message))
         }
     }
 }

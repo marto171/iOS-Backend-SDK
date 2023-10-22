@@ -27,8 +27,6 @@ struct Request {
     static func post<T: Codable, R: Codable>(url: String, body: T, authToken: String? = nil) async -> R? {
         let bodyData = JSON.encode(body)
         
-        print("URL: \(url)")
-        
         var request = URLRequest(url: URL(string: url)!)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "POST"

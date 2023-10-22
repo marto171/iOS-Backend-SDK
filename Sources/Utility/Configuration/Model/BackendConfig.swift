@@ -12,7 +12,11 @@ public struct BackendConfig: Config {
     public var language: String
     public var errors: [BackendError]
     
-    public func getError(_ type: BackendErrorType) -> BackendError? {
+    public func getError(_ type: BackendErrorType?) -> BackendError? {
+        guard let type = type else {
+            return nil
+        }
+        
         if !errors.isEmpty {
             #warning("Fix this, so it returns the error from the configuration or in case there is no such error, then return nil.")
             

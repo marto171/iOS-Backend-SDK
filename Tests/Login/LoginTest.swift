@@ -13,10 +13,10 @@ final class LoginTest: XCTestCase {
 
         Backend.shared.config = BackendConfig(baseUrl: "https://api.wellsavor.com", language: "en", errors: [])
         
-        await Backend.shared.login(email: "georgievmarti21@gmail.com", password: "Az@dert123gg") { status in
+        await Backend.shared.login(email: "georgievmarti21@gmail.com", password: "123Prudni@") { status in
             switch status {
             case .success(let response):
-                print(response.message)
+                print(response)
             case .failure(let error):
                 print(error)
             }

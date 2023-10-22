@@ -17,7 +17,7 @@ extension Backend {
         let response: SignUpResponse? = await Request.post(url: "\(config.baseUrl)/\(config.language)/api/v2/user/signup", body: SignUpRequest(name: name, email: email, password: password, passwordConfirm: confirmPassword))
         
         guard let response = response else {
-            callback(.failure(config.getError(.APIConnectionError) ?? K.noAPIConnectionError))
+            callback(.failure(K.noAPIConnectionError))
             return
         }
         
@@ -25,7 +25,7 @@ extension Backend {
         case "success":
             callback(.success(response))
         default:
-            callback(.failure(config.getError(.SignUpFail) ?? BackendError(type: .Custom, localizedDescription: response.message)))
+            callback(.failure(config.getError(BackendErrorType(rawValue: response.identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: response.message)))
         }
     }
 }

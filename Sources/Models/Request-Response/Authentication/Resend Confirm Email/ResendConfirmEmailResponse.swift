@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct ResendConfirmEmailResponse: Codable {
-    let status: String
-    let message: String
+public struct ResendConfirmEmailResponse: Codable {
+    public let status: String
+    public let message: String
+    public let identifier: String?
 }

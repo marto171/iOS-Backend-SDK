@@ -10,4 +10,5 @@ import Foundation
 public struct SignUpResponse: Codable {
     public let status: String
     public let message: String
+    public let identifier: String?
 }
