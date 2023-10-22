@@ -24,7 +24,7 @@ final class LoginConfirmTest: XCTestCase {
             ])
         ])
         
-        await Backend.shared.loginConfirm(email: "georgievmarti21@gmail.com", token: "9480fc42d0f40519d4bb39ad8de8d305075469d897b43e5a3f8f24d1077ed8ee") { status in
+        await Backend.shared.loginConfirm(email: "georgievmarti21@gmail.com", token: "cb6f929e98e34c0ea6b757ec774b9b8f2fd6a5e199915e6632f4d6443b67948e") { status in
             switch status {
             case .success(let response):
                 print(response)
