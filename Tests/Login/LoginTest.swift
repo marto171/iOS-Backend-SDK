@@ -10,13 +10,10 @@ final class LoginTest: XCTestCase {
         print("------------------LOGIN--------------------")
         print("------------------LOGIN--------------------")
         print("------------------LOGIN--------------------")
+
+        Backend.shared.config = BackendConfig(baseUrl: "https://api.wellsavor.com", language: "en", errors: [])
         
-        let config = BackendConfig(baseUrl: "https://api.wellsavor.com", language: "en", errors: [BackendError(type: .APIConnectionError, localizedDescription: "No API Connection")])
-        
-        Backend.shared.config = config
-        
-        
-        await Backend.shared.signUp(name: "Minko", email: "gamersend77@gmail.com", password: "123Prudni@", confirmPassword: "123Prudni@") { status in
+        await Backend.shared.login(email: "georgievmarti21@gmail.com", password: "Az@dert123gg") { status in
             switch status {
             case .success(let response):
                 print(response.message)

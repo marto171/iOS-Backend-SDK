@@ -15,7 +15,6 @@ final class SignUpTest: XCTestCase {
         
         Backend.shared.config = config
         
-        
         await Backend.shared.signUp(name: "Minko", email: "gamersend77@gmail.com", password: "123Prudni@", confirmPassword: "123Prudni@") { status in
             switch status {
             case .success(let response):

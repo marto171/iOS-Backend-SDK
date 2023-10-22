@@ -14,6 +14,8 @@ public struct BackendConfig: Config {
     
     public func getError(_ type: BackendErrorType) -> BackendError? {
         if !errors.isEmpty {
+            #warning("Fix this, so it returns the error from the configuration or in case there is no such error, then return nil.")
+            
             let index = errors.firstIndex(where: { $0.type == type })
             if let index = index {
                 return errors[index]
