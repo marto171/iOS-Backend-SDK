@@ -10,5 +10,5 @@ import Foundation
 public protocol Config {
     var baseUrl: String { get set }
     var language: String { get set }
-    var errors: [BackendError<Any>] { get set }
+    var errors: [BackendError<[BackendLocalizedErrorType]>] { get set }
 }

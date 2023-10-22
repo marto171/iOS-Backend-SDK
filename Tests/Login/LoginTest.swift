@@ -11,7 +11,7 @@ final class LoginTest: XCTestCase {
         print("------------------LOGIN--------------------")
         print("------------------LOGIN--------------------")
 
-        Backend.shared.config = BackendConfig(baseUrl: "https://api.wellsavor.com", language: "en", errors: [
+        Backend.shared.config = BackendConfig(baseUrl: "https://api.wellsavor.com", language: "bg", errors: [
             BackendError(type: .EmailAlreadyExists, localizedDescription: [
                 LocalizedError(language: "en", localizedDescription: "Working email already exists."),
                 LocalizedError(language: "bg", localizedDescription: "Работи email already exists."),
