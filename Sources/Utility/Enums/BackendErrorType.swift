@@ -8,9 +8,13 @@
 import Foundation
 
 public enum BackendErrorType: String, Error {
+    // Custom errors (mainly from the API)
     case Custom
     
+    // Errors that don't need to be handled
     case EmailNotVerified
+    
+    // Errors that need to be handled in the configuration
     case IncorrectCredentials
     case EmailAlreadyExists
     case UserNotFound
