@@ -11,7 +11,11 @@ final class LoginTest: XCTestCase {
         print("------------------LOGIN--------------------")
         print("------------------LOGIN--------------------")
 
-        Backend.shared.config = BackendConfig(baseUrl: "https://api.wellsavor.com", language: "en", errors: [])
+        Backend.shared.config = BackendConfig(baseUrl: "https://api.wellsavor.com", language: "en", errors: [BackendError(type: .Custom, localizedDescription: [
+            BackendLocalizedError(language: "en", localizedDescription: "Working"),
+            BackendLocalizedError(language: "bg", localizedDescription: "Работи"),
+            BackendLocalizedError(language: "de", localizedDescription: "Arbeitet")
+        ])])
         
         await Backend.shared.login(email: "georgievmarti21@gmail.com", password: "123Prudni@") { status in
             switch status {

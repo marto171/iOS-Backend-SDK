@@ -7,17 +7,27 @@
 
 import Foundation
 
-public struct BackendError: BackendCustomError {
+public struct BackendError<T>: BackendCustomError {
     public var type: BackendErrorType
-    public var localizedDescription: String
-    
-    public init(type: BackendErrorType, localizedDescription: String) {
+    public var localizedDescription: T
+
+    public init(type: BackendErrorType, localizedDescription: T) {
         self.type = type
         self.localizedDescription = localizedDescription
     }
 }
 
-public struct BackendLocalizedError {
+public protocol BackendLocalizedErrorType {
+    var language: String { get set }
+    var localizedDescription: String { get set }
+}
+
+public struct BackendLocalizedError: BackendLocalizedErrorType {
     public var language: String
     public var localizedDescription: String
+    
+    public init(language: String, localizedDescription: String) {
+        self.language = language
+        self.localizedDescription = localizedDescription
+    }
 }

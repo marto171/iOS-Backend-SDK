@@ -8,7 +8,7 @@
 import Foundation
 
 extension Backend {
-    func resendEmail(email: String) async -> Result<ResendConfirmEmailResponse, BackendError> {
+    func resendEmail(email: String) async -> Result<ResendConfirmEmailResponse, BackendError<String>> {
         guard let config = self.config else {
             return .failure(K.noConfigError)
         }

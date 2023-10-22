@@ -8,7 +8,7 @@
 import Foundation
 
 extension Backend {
-    public func signUp(name: String, email: String, password: String, confirmPassword: String, callback: (Result<SignUpResponse, BackendError>) -> Void) async {
+    public func signUp(name: String, email: String, password: String, confirmPassword: String, callback: (Result<SignUpResponse, BackendError<String>>) -> Void) async {
         guard let config = self.config else {
             callback(.failure(K.noConfigError))
             return
