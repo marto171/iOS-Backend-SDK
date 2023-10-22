@@ -9,5 +9,4 @@ import Foundation
 
 public protocol BackendCustomError: Error {
     var type: BackendErrorType { get set }
-//    var localizedDescription: String { get set }
 }

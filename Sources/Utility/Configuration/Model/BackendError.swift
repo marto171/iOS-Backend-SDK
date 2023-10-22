@@ -16,18 +16,3 @@ public struct BackendError<T>: BackendCustomError {
         self.localizedDescription = localizedDescription
     }
 }
-
-public protocol BackendLocalizedErrorType {
-    var language: String { get set }
-    var localizedDescription: String { get set }
-}
-
-public struct BackendLocalizedError: BackendLocalizedErrorType {
-    public var language: String
-    public var localizedDescription: String
-    
-    public init(language: String, localizedDescription: String) {
-        self.language = language
-        self.localizedDescription = localizedDescription
-    }
-}
