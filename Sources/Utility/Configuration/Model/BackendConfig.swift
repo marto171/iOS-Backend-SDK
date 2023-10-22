@@ -21,7 +21,7 @@ public struct BackendConfig: Config {
             let errorsNotLocalized = errors.first(where: { $0.type == type })?.localizedDescription
             
             if let errorsNotLocalized = errorsNotLocalized {
-                let error = errorsNotLocalized.first(where: {$0.language == config.language})
+                let error = errorsNotLocalized.first(where: { $0.language == config.language })
                 
                 if let error = error {
                     return BackendError(type: type, localizedDescription: error.localizedDescription)
