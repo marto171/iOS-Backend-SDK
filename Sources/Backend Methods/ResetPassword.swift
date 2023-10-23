@@ -1,5 +1,5 @@
 //
-//  RequestResetPassword.swift
+//  ResetPassword.swift
 //
 //
 //  Created by Martin on 21.10.23.
@@ -8,13 +8,13 @@
 import Foundation
 
 extension Backend {
-    public func requestResetPassword(email: String, callback: (Result<ConfirmAuthResponse, BackendError<String>>) -> Void) async {
+    public func resetPassword(token: String, email: String, password: String, confirmPassword: String, callback: (Result<ConfirmAuthResponse, BackendError<String>>) -> Void) async {
         guard let config = self.config else {
             callback(.failure(K.SDKError.noConfigError))
             return
         }
         
-        let response: ConfirmAuthResponse? = await Request.post(url: "\(config.baseUrl)/\(config.language)/api/v1/user/password/reset", body: EmailAuthRequest(email: email))
+        let response: ConfirmAuthResponse? = await Request.patch(url: "\(config.baseUrl)/\(config.language)/api/v1/user/password/reset/\(token)", body: ResetPasswordRequest(email: email, password: password, passwordConfirm: confirmPassword))
         
         guard let response = response else {
             callback(.failure(K.SDKError.noAPIConnectionError))
