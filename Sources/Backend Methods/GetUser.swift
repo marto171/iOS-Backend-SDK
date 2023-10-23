@@ -1,20 +1,20 @@
 //
-//  EmailConfirm.swift
+//  GetUser.swift
 //
 //
-//  Created by Martin on 22.10.23.
+//  Created by Martin on 23.10.23.
 //
 
 import Foundation
 
 extension Backend {
-    public func emailConfirm(email: String, token: String, callback: (Result<ConfirmAuthResponse, BackendError<String>>) -> Void) async {
+    public func getUser(authToken: String, callback: (Result<GetUserDataResponse, BackendError<String>>) -> Void) async {
         guard let config = self.config else {
             callback(.failure(K.SDKError.noConfigError))
             return
         }
         
-        let response: ConfirmAuthResponse? = await Request.post(url: "\(config.baseUrl)/\(config.language)/api/v2/user/email/confirm/\(token)", body: EmailAuthRequest(email: email))
+        let response: GetUserDataResponse? = await Request.get(url: "\(config.baseUrl)/\(config.language)/api/v1/user/me", authToken: authToken)
         
         guard let response = response else {
             callback(.failure(K.SDKError.noAPIConnectionError))

@@ -5,13 +5,13 @@ import iOS_Backend_SDK
 final class LoginConfirmTest: XCTestCase {
     func testExample() async throws {
         print("START PROGRAM")
-        print("------------------LOGINCONFIRM--------------------")
-        print("------------------LOGINCONFIRM--------------------")
-        print("------------------LOGINCONFIRM--------------------")
-        print("------------------LOGINCONFIRM--------------------")
-        print("------------------LOGINCONFIRM--------------------")
+        print("------------------GETME--------------------")
+        print("------------------GETME--------------------")
+        print("------------------GETME--------------------")
+        print("------------------GETME--------------------")
+        print("------------------GETME--------------------")
         
-        Backend.shared.config = BackendConfig(baseUrl: "https://api.wellsavor.com", language: "en", errors: [
+        Backend.shared.config = BackendConfig(baseUrl: "https://api.wellsavor.com", language: "bg", errors: [
             BackendError(type: .EmailAlreadyExists, localizedDescription: [
                 LocalizedError(language: "en", localizedDescription: "Working email already exists."),
                 LocalizedError(language: "bg", localizedDescription: "Работи email already exists."),
@@ -24,7 +24,7 @@ final class LoginConfirmTest: XCTestCase {
             ])
         ])
         
-        await Backend.shared.loginConfirm(email: "georgievmarti21@gmail.com", token: "6e753833f76f8b3b751ea1b03ba879012ff6e6d3543e4ba4733edb4636c2f369") { status in
+        await Backend.shared.getUser(authToken: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MzYyZTA5MmVjZjgzNGQwOTRiZmM3YiIsImlhdCI6MTY5ODA4MTkwMCwiZXhwIjoxNzAzMjY1OTAwfQ.t9nKxVqDLhkMSj805xlb0vmOzfc-IMIIVQrFxg_bvX8") { status in
             switch status {
             case .success(let response):
                 print(response)
@@ -33,11 +33,11 @@ final class LoginConfirmTest: XCTestCase {
             }
         }
         
-        print("------------------LOGINCONFIRM--------------------")
-        print("------------------LOGINCONFIRM--------------------")
-        print("------------------LOGINCONFIRM--------------------")
-        print("------------------LOGINCONFIRM--------------------")
-        print("------------------LOGINCONFIRM--------------------")
+        print("------------------GETME--------------------")
+        print("------------------GETME--------------------")
+        print("------------------GETME--------------------")
+        print("------------------GETME--------------------")
+        print("------------------GETME--------------------")
         print("END PROGRAM")
     }
 }
