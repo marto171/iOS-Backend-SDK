@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct FormRequests {
+struct FormRequest {
     static func patchFormData<R: Codable>(url: String, json: Data? = nil, image: UIImage? = nil, authToken: String? = nil) async -> R? {
         let imageData: Data? = ImageMedia(withImage: image, key: "image").data
         let boundary: String = FormData.generateBoundary()

@@ -13,5 +13,4 @@ public struct User: Codable {
     public var name: String
     public var email: String
     public var photo: String
-    public var details: UserDetails?
 }
