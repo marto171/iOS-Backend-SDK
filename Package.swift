@@ -17,7 +17,7 @@ let package = Package(
         .target(
             name: "iOS-Backend-SDK"),
         .testTarget(
-            name: "EmailConfirm",
+            name: "RequestResetPassword",
             dependencies: ["iOS-Backend-SDK"]),
     ]
 )
