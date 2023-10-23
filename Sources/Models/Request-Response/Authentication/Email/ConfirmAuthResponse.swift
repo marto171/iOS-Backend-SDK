@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct LoginConfirmAuthResponse: Codable {
+public struct ConfirmAuthResponse: Codable {
     public let status: String
     public let message: String?
     public let token: String?
