@@ -8,5 +8,5 @@
 import Foundation
 
 public struct UserData: Codable {
-    let user: User?
+    public let user: User?
 }
