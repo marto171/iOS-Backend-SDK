@@ -11,5 +11,5 @@ public struct GetUserDataResponse: Codable {
     public let status: String
     public let message: String?
     public let identifier: String?
-    public let data: User?
+    public let data: BackendUser?
 }
