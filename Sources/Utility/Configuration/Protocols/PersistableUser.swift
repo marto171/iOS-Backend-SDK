@@ -7,7 +7,7 @@
 
 import Foundation
 
-public protocol PersistableUser: Codable {
+protocol PersistableUser: Codable {
     var _id: String { get set }
     var token: String? { get set }
     var name: String { get set }
