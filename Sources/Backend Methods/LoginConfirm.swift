@@ -8,7 +8,7 @@
 import Foundation
 
 extension Backend {
-    @MainActor public func loginConfirm(email: String, token: String, callback: (Result<ConfirmAuthResponse, BackendError<String>>) -> Void) async {
+    public func loginConfirm(email: String, token: String, callback: (Result<ConfirmAuthResponse, BackendError<String>>) -> Void) async {
         guard let config = self.config else {
             callback(.failure(K.SDKError.noConfigError))
             return
