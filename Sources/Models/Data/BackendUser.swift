@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class BackendUser: PersistableUser {
+public class BackendUser: Codable {
     public var _id: String
     public var token: String?
     public var name: String
