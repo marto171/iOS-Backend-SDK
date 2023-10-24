@@ -8,22 +8,24 @@
 import Foundation
 
 extension Backend {
-    public func resendEmail(email: String) async -> Result<ResendConfirmEmailResponse, BackendError<String>> {
+    public func resendEmail(email: String, callback: (Result<ResendConfirmEmailResponse, BackendError<String>>) -> Void) async {
         guard let config = self.config else {
-            return .failure(K.SDKError.noConfigError)
+            callback(.failure(K.SDKError.noConfigError))
+            return
         }
         
         let response: ResendConfirmEmailResponse? = await Request.post(url: "\(config.baseUrl)/\(config.language)/api/v2/user/email/resend", body: ResendConfirmEmailRequest(email: email))
         
         guard let response = response else {
-            return .failure(K.SDKError.noAPIConnectionError)
+            callback(.failure(K.SDKError.noAPIConnectionError))
+            return
         }
         
         switch response.status {
         case "success":
-            return .success(response)
+            callback(.success(response))
         default:
-            return .failure(config.getError(BackendErrorType(rawValue: response.identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: response.message))
+            callback(.failure(config.getError(BackendErrorType(rawValue: response.identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: response.message)))
         }
     }
 }

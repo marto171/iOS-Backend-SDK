@@ -26,13 +26,13 @@ extension Backend {
             callback(.success(response))
         default:
             if response.identifier == "EmailNotVerified" {
-                let resendResponse = await resendEmail(email: email)
-                
-                switch resendResponse {
-                case .success(let resendConfirmEmailResponse):
-                    callback(.failure(BackendError(type: .Custom, localizedDescription: resendConfirmEmailResponse.message)))
-                case .failure(let error):
-                    callback(.failure(error))
+                await resendEmail(email: email) { result in
+                    switch result {
+                    case .success(let response):
+                        callback(.failure(BackendError(type: .Custom, localizedDescription: response.message)))
+                    case .failure(let error):
+                        callback(.failure(error))
+                    }
                 }
             } else {
                 callback(.failure(config.getError(BackendErrorType(rawValue: response.identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: response.message)))
