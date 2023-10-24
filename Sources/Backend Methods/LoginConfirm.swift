@@ -8,7 +8,7 @@
 import Foundation
 
 extension Backend {
-    public func loginConfirm(email: String, token: String, callback: (Result<ConfirmAuthResponse, BackendError<String>>) -> Void) async {
+    @MainActor public func loginConfirm(email: String, token: String, callback: (Result<ConfirmAuthResponse, BackendError<String>>) -> Void) async {
         guard let config = self.config else {
             callback(.failure(K.SDKError.noConfigError))
             return
@@ -21,7 +21,7 @@ extension Backend {
             case "success":
                 return callback(.success(response));
             default:
-                await callback(.failure(config.getError(BackendErrorType(rawValue: response.identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: response.message ?? K.SDKMessage.genericMessage)))
+                callback(.failure(config.getError(BackendErrorType(rawValue: response.identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: response.message ?? K.SDKMessage.genericMessage)))
             }
         }
     }
