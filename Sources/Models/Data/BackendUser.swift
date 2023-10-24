@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct BackendUser: Codable {
+public class BackendUser: Codable {
     public let _id: String
     public var token: String?
     public var name: String
