@@ -7,8 +7,8 @@
 
 import Foundation
 
-public class BackendUser: Codable {
-    public let _id: String
+public class BackendUser: PersistableUser {
+    public var _id: String
     public var token: String?
     public var name: String
     public var email: String
