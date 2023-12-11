@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkRequests
 
 extension Backend {
     public func requestResetPassword(email: String, callback: (Result<ConfirmAuthResponse, BackendError<String>>) -> Void) async {
@@ -14,18 +15,20 @@ extension Backend {
             return
         }
         
-        let response: ConfirmAuthResponse? = await Request.post(url: "\(config.baseUrl)/\(config.language)/api/v1/user/password/reset", body: EmailAuthRequest(email: email))
+        let request: Result<ConfirmAuthResponse, NetworkError> = await Request.post(url: "\(config.baseUrl)/\(config.language)/api/v1/user/password/reset", body: EmailAuthRequest(email: email))
         
-        guard let response = response else {
+        switch request {
+        case .success(let response):
+            switch response.status {
+            case "success":
+                callback(.success(response))
+            default:
+                callback(.failure(config.getError(BackendErrorType(rawValue: response.identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: response.message ?? K.SDKMessage.genericMessage)))
+            }
+        case .failure(_):
             callback(.failure(K.SDKError.noAPIConnectionError))
-            return
         }
         
-        switch response.status {
-        case "success":
-            callback(.success(response))
-        default:
-            callback(.failure(config.getError(BackendErrorType(rawValue: response.identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: response.message ?? K.SDKMessage.genericMessage)))
-        }
+        
     }
 }

@@ -1,0 +1,41 @@
+{
+  "pins" : [
+    {
+      "identity" : "jsoncoder",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ikok07/JSONCoder.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "26a45081da11a77cdc71866567aca6b2c3471fa6"
+      }
+    },
+    {
+      "identity" : "networkrequests",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ikok07/NetworkRequests.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "f8716f1bc32610a2df7163ae933f46197cef0c48"
+      }
+    },
+    {
+      "identity" : "swift-macros",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/bernndr/swift-macros.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "8fd2a351d337ed22de523795c90a7ffb265261d1"
+      }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-syntax.git",
+      "state" : {
+        "revision" : "6ad4ea24b01559dde0773e3d091f1b9e36175036",
+        "version" : "509.0.2"
+      }
+    }
+  ],
+  "version" : 2
+}

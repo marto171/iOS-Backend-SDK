@@ -13,9 +13,18 @@ let package = Package(
             name: "iOS-Backend-SDK",
             targets: ["iOS-Backend-SDK"]),
     ],
+    dependencies: [
+        .package(url: "https://github.com/ikok07/JSONCoder.git", branch: "main"),
+        .package(url: "https://github.com/ikok07/NetworkRequests.git", branch: "main"),
+    ],
     targets: [
         .target(
-            name: "iOS-Backend-SDK"),
+            name: "iOS-Backend-SDK",
+            dependencies: [
+                .product(name: "JSONCoder", package: "JSONCoder"),
+                .product(name: "NetworkRequests", package: "NetworkRequests")
+            ]
+        ),
         .testTarget(
             name: "UpdateNamePhoto",
             dependencies: ["iOS-Backend-SDK"]),

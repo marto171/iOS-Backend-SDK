@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkRequests
 
 extension Backend {
     public func loginConfirm(email: String, token: String, callback: (Result<ConfirmAuthResponse, BackendError<String>>) -> Void) async {
@@ -14,15 +15,18 @@ extension Backend {
             return
         }
         
-        let response: ConfirmAuthResponse? = await Request.post(url: "\(config.baseUrl)/\(config.language)/api/v2/user/login/confirm/\(token)", body: EmailAuthRequest(email: email))
+        let request: Result<ConfirmAuthResponse, NetworkError> = await Request.post(url: "\(config.baseUrl)/\(config.language)/api/v2/user/login/confirm/\(token)", body: EmailAuthRequest(email: email))
         
-        if let response = response {
+        switch request {
+        case .success(let response):
             switch response.status {
             case "success":
                 return callback(.success(response));
             default:
                 callback(.failure(config.getError(BackendErrorType(rawValue: response.identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: response.message ?? K.SDKMessage.genericMessage)))
             }
+        case .failure(_):
+            callback(.failure(K.SDKError.noAPIConnectionError))
         }
     }
 }

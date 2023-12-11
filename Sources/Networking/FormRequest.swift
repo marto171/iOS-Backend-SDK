@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import JSONCoder
 
 struct FormRequest {
     static func patchFormData<R: Codable>(url: String, json: Data? = nil, image: UIImage? = nil, authToken: String? = nil) async -> R? {
@@ -21,7 +22,7 @@ struct FormRequest {
         
         do {
             let (data, _) = try await URLSession.shared.data(for: request)
-            let decodedData: R? = JSON.decode(data)
+            let decodedData: R? = JSONCoder.decode(data)
             return decodedData
         } catch {
             return nil

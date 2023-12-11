@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import NetworkRequests
 
 extension Backend {
     public func signUp(name: String, email: String, password: String, confirmPassword: String, callback: (Result<SignUpResponse, BackendError<String>>) -> Void) async {
@@ -14,18 +15,20 @@ extension Backend {
             return
         }
         
-        let response: SignUpResponse? = await Request.post(url: "\(config.baseUrl)/\(config.language)/api/v2/user/signup", body: SignUpRequest(name: name, email: email, password: password, passwordConfirm: confirmPassword))
+        let request: Result<SignUpResponse, NetworkError> = await Request.post(url: "\(config.baseUrl)/\(config.language)/api/v2/user/signup", body: SignUpRequest(name: name, email: email, password: password, passwordConfirm: confirmPassword))
         
-        guard let response = response else {
+        switch request {
+        case .success(let response):
+            switch response.status {
+            case "success":
+                callback(.success(response))
+            default:
+                callback(.failure(config.getError(BackendErrorType(rawValue: response.identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: response.message)))
+            }
+        case .failure(_):
             callback(.failure(K.SDKError.noAPIConnectionError))
-            return
         }
         
-        switch response.status {
-        case "success":
-            callback(.success(response))
-        default:
-            callback(.failure(config.getError(BackendErrorType(rawValue: response.identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: response.message)))
-        }
+        
     }
 }
