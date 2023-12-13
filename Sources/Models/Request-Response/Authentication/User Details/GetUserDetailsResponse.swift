@@ -7,18 +7,18 @@
 
 import Foundation
 
-struct GetUserDetailsResponse: Codable {
+public struct GetUserDetailsResponse: Codable {
     let status: String
     let data: BackendUserDetailsData?
     let message: String?
     let identifier: String?
 }
 
-struct BackendUserDetailsData: Codable {
+public struct BackendUserDetailsData: Codable {
     let userDetails: BackendUserDetails
 }
 
-struct BackendUserDetails: Codable {
+public struct BackendUserDetails: Codable {
     let _id: String
     let userId: String
     // other details
