@@ -8,19 +8,19 @@
 import Foundation
 
 public struct GetUserDetailsResponse: Codable {
-    let status: String
-    let data: BackendUserDetailsData?
-    let message: String?
-    let identifier: String?
+    public let status: String
+    public let data: BackendUserDetailsData?
+    public let message: String?
+    public let identifier: String?
 }
 
 public struct BackendUserDetailsData: Codable {
-    let userDetails: BackendUserDetails
+    public let userDetails: BackendUserDetails
 }
 
 public struct BackendUserDetails: Codable {
-    let _id: String
-    let userId: String
+    public let _id: String
+    public let userId: String
     // other details
 }
 
