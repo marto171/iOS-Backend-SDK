@@ -13,14 +13,14 @@ public struct BackendConfig: Config {
     public var errors: [BackendError<[BackendLocalizedErrorType]>]
     
     @MainActor public func getError(_ type: BackendErrorType?) -> BackendError<String>? {
-        guard let type = type, let config = Backend.shared.config else {
+        guard let type, let config = Backend.shared.config else {
             return nil
         }
         
         if !errors.isEmpty {
             let errorsNotLocalized = errors.first(where: { $0.type == type })?.localizedDescription
             
-            if let errorsNotLocalized = errorsNotLocalized {
+            if let errorsNotLocalized {
                 let error = errorsNotLocalized.first(where: { $0.language == config.language })
                 
                 if let error = error {
