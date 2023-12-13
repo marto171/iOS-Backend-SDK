@@ -10,7 +10,7 @@ import NetworkRequests
 
 extension Backend {
     
-    public func getUserDetails(userId: String, callback: (Result<GetUserDataResponse, BackendError<String>>) -> Void) async {
+    public func getUserDetails(userId: String, callback: @escaping (Result<GetUserDataResponse, BackendError<String>>) -> Void) async {
         
         guard let config = self.config else {
             callback(.failure(K.SDKError.noConfigError))
