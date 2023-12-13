@@ -10,10 +10,10 @@ import NetworkRequests
 
 extension Backend {
     
-    public func getUserDetails(userId: String, callback: @escaping (Result<GetUserDataResponse, BackendError<String>>) -> Void) async {
+    public func getUserDetails(userId: String, callback: (Result<GetUserDataResponse, BackendError<String>>) async -> Void) async {
         
         guard let config = self.config else {
-            callback(.failure(K.SDKError.noConfigError))
+            await callback(.failure(K.SDKError.noConfigError))
             return
         }
         
@@ -21,9 +21,9 @@ extension Backend {
         
         switch request {
         case .success(let response):
-            callback(.success(response))
+            await callback(.success(response))
         case .failure(_):
-            callback(.failure(K.SDKError.noAPIConnectionError))
+            await callback(.failure(K.SDKError.noAPIConnectionError))
         }
     }
     
