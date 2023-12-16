@@ -32,7 +32,7 @@ extension Backend {
             default:
                 callback(.failure(config.getNormalRequestError(identifier: response.identifier, message: response.message)))
             }
-        case .failure(let error):
+        case .failure(_):
             callback(.failure(K.SDKError.noAPIConnectionError))
         }
     }

@@ -21,7 +21,12 @@ extension Backend {
         
         switch request {
         case .success(let response):
-            await callback(.success(response))
+            switch response.status {
+            case "success":
+                await callback(.success(response))
+            default:
+                await callback(.failure(config.getNormalRequestError(identifier: response.identifier, message: response.message)))
+            }
         case .failure(_):
             await callback(.failure(K.SDKError.noAPIConnectionError))
         }

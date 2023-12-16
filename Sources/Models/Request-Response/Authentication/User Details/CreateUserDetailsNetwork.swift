@@ -17,7 +17,7 @@ public struct CreateUserDetailsResponse: Codable {
     let status: String
     let message: String?
     let identifier: String?
-    let data: CreateUserDetailsData
+    let data: CreateUserDetailsData?
 }
 
 public struct CreateUserDetailsData: Codable {
