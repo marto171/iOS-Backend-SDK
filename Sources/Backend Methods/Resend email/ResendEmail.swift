@@ -25,7 +25,7 @@ extension Backend {
             default:
                 callback(.failure(config.getError(BackendErrorType(rawValue: response.identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: response.message)))
             }
-        case .failure(let error):
+        case .failure(_):
             callback(.failure(K.SDKError.noAPIConnectionError))
         }
     }

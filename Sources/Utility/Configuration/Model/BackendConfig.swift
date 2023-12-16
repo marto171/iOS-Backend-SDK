@@ -31,6 +31,10 @@ public struct BackendConfig: Config {
         return nil
     }
     
+    @MainActor public func getNormalRequestError(identifier: String?, message: String?) -> BackendError<String> {
+        return getError(BackendErrorType(rawValue: identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: message ?? K.SDKMessage.genericMessage)
+    }
+    
     public init(baseUrl: String, language: String, errors: [BackendError<[BackendLocalizedErrorType]>]) {
         self.baseUrl = baseUrl
         self.language = language
