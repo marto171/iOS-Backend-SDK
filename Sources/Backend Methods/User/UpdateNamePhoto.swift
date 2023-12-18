@@ -10,7 +10,7 @@ import UIKit
 import NetworkRequests
 
 extension Backend {
-    public func updateNamePhoto(name: String, image: UIImage?, authToken: String, callback: (Result<ProfileDataResponse, BackendError<String>>) -> Void) async {
+    public func updateNamePhoto(name: String, image: UIImage?, authToken: String, callback: (Result<ProfileDataResponse, BackendError<String>>) -> Void) async throws {
         guard let config = self.config else {
             callback(.failure(K.SDKError.noConfigError))
             return
