@@ -32,7 +32,8 @@ extension Backend {
             default:
                 callback(.failure(config.getNormalRequestError(identifier: response.identifier, message: response.message)))
             }
-        case .failure(_):
+        case .failure(let error):
+            print("Error creating user details: \(error)")
             callback(.failure(K.SDKError.noAPIConnectionError))
         }
     }
