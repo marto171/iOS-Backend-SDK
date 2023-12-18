@@ -36,8 +36,12 @@ extension Backend {
                 ))
             }
         case .failure(let error):
-            print("Form data error: \(error)")
-            await callback(.failure(K.SDKError.noAPIConnectionError))
+            print("Form data error: \(error.rawValue)")
+            await callback(.failure(
+                config.getError(.CannotSaveUserDetails)
+                ??
+                BackendError(type: .CannotSaveUserDetails, localizedDescription: "Cannot save user details")
+            ))
         }
         
     }
