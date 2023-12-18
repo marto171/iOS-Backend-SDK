@@ -32,7 +32,7 @@ extension Backend {
                 await callback(.failure(
                     config.getError(.CannotSaveUserDetails)
                     ??
-                    BackendError(type: .CannotSaveUserDetails, localizedDescription: "Cannot save user details")
+                    BackendError(type: .CannotSaveUserDetails, localizedDescription: "User details could not be saved. Please try again!")
                 ))
             }
         case .failure(let error):
@@ -40,7 +40,7 @@ extension Backend {
             await callback(.failure(
                 config.getError(.CannotSaveUserDetails)
                 ??
-                BackendError(type: .CannotSaveUserDetails, localizedDescription: "Cannot save user details")
+                BackendError(type: .CannotSaveUserDetails, localizedDescription: "User details could not be saved. Please try again!")
             ))
         }
         
