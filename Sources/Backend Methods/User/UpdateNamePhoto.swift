@@ -16,7 +16,7 @@ extension Backend {
             return
         }
         
-        let request: Result<ProfileDataResponse, NetworkError>? = await Request.patchFormData(url: "\(config.baseUrl)/\(config.language)/api/v1/user/me", json: name.data(using: .utf8)!, images: [image], authToken: authToken)
+        let request: Result<ProfileDataResponse, NetworkError>? = await Request.patchFormData(url: "\(config.baseUrl)/\(config.language)/api/v1/user/me", json: name.data(using: .utf8)!, image: image, authToken: authToken)
         
         guard let request else {
             await callback(.failure(K.SDKError.noAPIConnectionError))
@@ -29,7 +29,11 @@ extension Backend {
             case "success":
                 return await callback(.success(response));
             default:
-                await callback(.failure(config.getError(BackendErrorType(rawValue: response.identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: response.message ?? K.SDKMessage.genericMessage)))
+                await callback(.failure(
+                    config.getError(.CannotSaveUserDetails)
+                    ??
+                    BackendError(type: .CannotSaveUserDetails, localizedDescription: "Cannot save user details")
+                ))
             }
         case .failure(let error):
             print("Form data error: \(error)")

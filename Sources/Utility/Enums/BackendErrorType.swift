@@ -26,4 +26,5 @@ public enum BackendErrorType: String, Error {
     case RecentlyChangedPassword
     case InvalidId
     case NoUserDetails
+    case CannotSaveUserDetails
 }
