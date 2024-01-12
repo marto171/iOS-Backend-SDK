@@ -15,7 +15,7 @@ extension Backend {
             return
         }
         
-        let request: Result<SignUpResponse, NetworkError> = await Request.post(url: "\(config.baseUrl)/\(config.language)/api/v2/user/signup", body: SignUpRequest(name: name, email: email, password: password, passwordConfirm: confirmPassword))
+        let request: Result<SignUpResponse, NetworkError> = await Request.post(url: "\(config.baseUrl)/\(config.language)/api/v2/user/signup/basic", body: SignUpRequest(name: name, email: email, password: password, passwordConfirm: confirmPassword))
         
         switch request {
         case .success(let response):
