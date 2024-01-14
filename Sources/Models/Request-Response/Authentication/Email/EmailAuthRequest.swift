@@ -9,4 +9,6 @@ import Foundation
 
 struct EmailAuthRequest: Codable {
     let email: String
+    var deviceToken: String? = nil
+    var appSecurityTokenId: String? = ""
 }

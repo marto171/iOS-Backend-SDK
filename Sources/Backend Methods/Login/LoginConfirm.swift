@@ -9,13 +9,13 @@ import Foundation
 import NetworkRequests
 
 extension Backend {
-    public func loginConfirm(email: String, token: String, callback: (Result<ConfirmAuthResponse, BackendError<String>>) -> Void) async {
+    public func loginConfirm(email: String, token: String, deviceToken: String? = nil, appSecurityTokenId: String? = nil, callback: (Result<ConfirmAuthResponse, BackendError<String>>) -> Void) async {
         guard let config = self.config else {
             callback(.failure(K.SDKError.noConfigError))
             return
         }
         
-        let request: Result<ConfirmAuthResponse, NetworkError> = await Request.post(url: "\(config.baseUrl)/\(config.language)/api/v2/user/login/confirm/\(token)", body: EmailAuthRequest(email: email))
+        let request: Result<ConfirmAuthResponse, NetworkError> = await Request.post(url: "\(config.baseUrl)/\(config.language)/api/v2/user/login/confirm/\(token)", body: EmailAuthRequest(email: email, deviceToken: deviceToken, appSecurityTokenId: appSecurityTokenId))
         
         switch request {
         case .success(let response):

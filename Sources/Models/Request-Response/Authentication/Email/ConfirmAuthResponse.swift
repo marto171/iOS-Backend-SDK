@@ -13,4 +13,5 @@ public struct ConfirmAuthResponse: Codable {
     public let token: String?
     public let data: UserData?
     public let identifier: String?
+    public let appSecurityTokenId: String?
 }

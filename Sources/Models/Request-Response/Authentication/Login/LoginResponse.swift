@@ -11,4 +11,5 @@ public struct LoginResponse: Codable {
     public let status: String
     public let message: String
     public let identifier: String?
+    public let appSecurityTokenId: String?
 }

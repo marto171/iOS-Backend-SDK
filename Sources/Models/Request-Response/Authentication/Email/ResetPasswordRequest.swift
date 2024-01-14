@@ -11,4 +11,6 @@ struct ResetPasswordRequest: Codable {
     let email: String
     let password: String
     let passwordConfirm: String
+    var deviceToken: String? = nil
+    var appSecurityTokenId: String? = nil
 }
