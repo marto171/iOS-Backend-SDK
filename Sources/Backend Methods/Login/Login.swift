@@ -27,7 +27,13 @@ extension Backend {
                     await resendEmail(email: email) { result in
                         switch result {
                         case .success(let response):
-                            await callback(.failure(BackendError(type: .Custom, localizedDescription: response.message)))
+                            await callback(.success(
+                                .init(status: response.status,
+                                      message: response.message,
+                                      identifier: response.identifier,
+                                      appSecurityTokenId: response.appSecurityTokenId
+                                     )
+                            ))
                         case .failure(let error):
                             await callback(.failure(error))
                         }
