@@ -12,4 +12,5 @@ struct SignUpRequest: Codable {
     let email: String
     let password: String
     let passwordConfirm: String
+    let deviceToken: String?
 }
