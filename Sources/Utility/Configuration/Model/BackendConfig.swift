@@ -8,6 +8,8 @@
 import Foundation
 
 public struct BackendConfig: Config {
+    public var bundleId: String
+    public var deviceToken: String
     public var baseUrl: String
     public var language: String
     public var errors: [BackendError<[BackendLocalizedErrorType]>]
@@ -35,7 +37,9 @@ public struct BackendConfig: Config {
         return getError(BackendErrorType(rawValue: identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: message ?? K.SDKMessage.genericMessage)
     }
     
-    public init(baseUrl: String, language: String, errors: [BackendError<[BackendLocalizedErrorType]>]) {
+    public init(bundleId: String, deviceToken: String, baseUrl: String, language: String, errors: [BackendError<[BackendLocalizedErrorType]>]) {
+        self.bundleId = bundleId
+        self.deviceToken = deviceToken
         self.baseUrl = baseUrl
         self.language = language
         self.errors = errors

@@ -11,7 +11,7 @@ final class LoginConfirmTest: XCTestCase {
         print("------------------UPDATENAMEPHOTO--------------------")
         print("------------------UPDATENAMEPHOTO--------------------")
         
-        Backend.shared.config = BackendConfig(baseUrl: "https://api.wellsavor.com", language: "bg", errors: [
+        Backend.shared.config = BackendConfig(bundleId: "com.example.app", deviceToken: "", baseUrl: "https://api.wellsavor.com", language: "bg", errors: [
             BackendError(type: .EmailAlreadyExists, localizedDescription: [
                 LocalizedError(language: "en", localizedDescription: "Working email already exists."),
                 LocalizedError(language: "bg", localizedDescription: "Работи email already exists."),

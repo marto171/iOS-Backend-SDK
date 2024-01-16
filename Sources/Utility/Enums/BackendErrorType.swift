@@ -27,4 +27,5 @@ public enum BackendErrorType: String, Error {
     case InvalidId
     case NoUserDetails
     case CannotSaveUserDetails
+    case SignInWithAppleFailed
 }

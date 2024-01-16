@@ -12,5 +12,7 @@ import Foundation
     
     public static var shared: Backend = Backend()
     
+    var backendVariables: BackendVariables = .init()
+    
     private init() {}
 }
