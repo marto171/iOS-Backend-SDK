@@ -9,9 +9,9 @@ import Foundation
 import NetworkRequests
 
 extension Backend {
-    public func signUp(name: String, email: String, password: String, confirmPassword: String, deviceToken: String? = "", callback: (Result<SignUpResponse, BackendError<String>>) -> Void) async {
+    public func signUp(name: String, email: String, password: String, confirmPassword: String, deviceToken: String? = "", callback: (Result<SignUpResponse, BackendError<String>>) async -> Void) async {
         guard let config = self.config else {
-            callback(.failure(K.SDKError.noConfigError))
+            await callback(.failure(K.SDKError.noConfigError))
             return
         }
         
@@ -27,12 +27,12 @@ extension Backend {
         case .success(let response):
             switch response.status {
             case "success":
-                callback(.success(response))
+                await callback(.success(response))
             default:
-                callback(.failure(config.getError(BackendErrorType(rawValue: response.identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: response.message)))
+                await callback(.failure(config.getError(BackendErrorType(rawValue: response.identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: response.message)))
             }
         case .failure(_):
-            callback(.failure(K.SDKError.noAPIConnectionError))
+            await callback(.failure(K.SDKError.noAPIConnectionError))
         }
         
         

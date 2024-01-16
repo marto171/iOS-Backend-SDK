@@ -9,9 +9,9 @@ import Foundation
 import NetworkRequests
 
 extension Backend {
-    public func login(email: String, password: String, callback: (Result<LoginResponse, BackendError<String>>) -> Void) async {
+    public func login(email: String, password: String, callback: (Result<LoginResponse, BackendError<String>>) async -> Void) async {
         guard let config = self.config else {
-            callback(.failure(K.SDKError.noConfigError))
+            await callback(.failure(K.SDKError.noConfigError))
             return
         }
         
@@ -21,23 +21,23 @@ extension Backend {
         case .success(let response):
             switch response.status {
             case "success":
-                callback(.success(response))
+                await callback(.success(response))
             default:
                 if response.identifier == "EmailNotVerified" {
                     await resendEmail(email: email) { result in
                         switch result {
                         case .success(let response):
-                            callback(.failure(BackendError(type: .Custom, localizedDescription: response.message)))
+                            await callback(.failure(BackendError(type: .Custom, localizedDescription: response.message)))
                         case .failure(let error):
-                            callback(.failure(error))
+                            await callback(.failure(error))
                         }
                     }
                 } else {
-                    callback(.failure(config.getError(BackendErrorType(rawValue: response.identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: response.message)))
+                    await callback(.failure(config.getError(BackendErrorType(rawValue: response.identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: response.message)))
                 }
             }
         case .failure(_):
-            callback(.failure(K.SDKError.noAPIConnectionError))
+            await callback(.failure(K.SDKError.noAPIConnectionError))
         }
         
         
