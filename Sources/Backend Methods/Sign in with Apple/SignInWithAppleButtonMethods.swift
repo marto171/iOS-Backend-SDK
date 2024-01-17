@@ -11,24 +11,7 @@ import AuthenticationServices
 extension Backend {
     
     
-    public func setSignInWithAppleRequestVariables(_ request: ASAuthorizationAppleIDRequest) -> ASAuthorizationAppleIDRequest? {
-        guard self.config != nil else {
-            return nil
-        }
-        
-        let nonce = Nonce()
-        let state = Nonce()
-        
-        backendVariables.signInWithAppleNonce = nonce
-        backendVariables.signInWithAppleState = state
-        
-        request.requestedScopes = [.fullName, .email]
-        request.nonce = nonce.description
-        request.state = state.description
-        return request
-    }
-    
-    public func completeSignInWithApple(result: Result<ASAuthorization, Error>, callback: (Result<SignInWithAppleResponse, BackendError<String>>) async -> Void) async {
+    public func completeSignInWithApple(result: Result<ASAuthorization, Error>, nonce: Nonce, callback: (Result<SignInWithAppleResponse, BackendError<String>>) async -> Void) async {
         guard self.config != nil else {
             await callback(.failure(K.SDKError.noConfigError))
             return
@@ -49,7 +32,7 @@ extension Backend {
                     email: credential.email,
                     status: credential.realUserStatus,
                     authorizationCode: credential.authorizationCode,
-                    nonceString: backendVariables.signInWithAppleNonce?.description,
+                    nonceString: nonce.description,
                     identityToken: credential.identityToken) { result in
                         switch result {
                         case .success(let response):
