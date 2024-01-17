@@ -26,7 +26,7 @@ extension Backend {
         
         print("SIGN IN WITH APPLE EMAIL: \(String(describing: email))")
         
-        if let cachedData {
+        if let cachedData, email == nil {
             let _ = await retrySignInWithApple(
                 userData: cachedData,
                 nonce: nonceString,
