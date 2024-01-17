@@ -8,9 +8,9 @@
 import Foundation
 
 public struct SignInWithAppleResponse: Codable {
-    let status: String
-    let message: String?
-    let identifier: String?
-    let token: String?
-    let data: UserData?
+    public let status: String
+    public let message: String?
+    public let identifier: String?
+    public let token: String?
+    public let data: UserData?
 }
