@@ -11,7 +11,7 @@ import GoogleSignIn
 
 extension Backend {
     
-    func handleSignInWithGoogle(rootVC: UIViewController, callback: (Result<SignInWithGoogleResponse, BackendError<String>>) async -> Void) async {
+    public func handleSignInWithGoogle(rootVC: UIViewController, callback: (Result<SignInWithGoogleResponse, BackendError<String>>) async -> Void) async {
         guard let config else {
             await callback(.failure(K.SDKError.noConfigError))
             return
