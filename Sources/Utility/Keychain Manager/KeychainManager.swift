@@ -71,6 +71,8 @@ class KeychainManager {
         if status != errSecSuccess {
             print("Error deleting data from Keychain")
         }
+        
+        print("Data deleted from keychain!")
     }
     
     static func saveCustomObject<T: Codable>(service: String, account: String, object: T) {
