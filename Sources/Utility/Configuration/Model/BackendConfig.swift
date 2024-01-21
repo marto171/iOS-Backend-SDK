@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import GoogleSignIn
 
 public struct BackendConfig: Config {
     public var bundleId: String
@@ -13,6 +14,20 @@ public struct BackendConfig: Config {
     public var baseUrl: String
     public var language: String
     public var errors: [BackendError<[BackendLocalizedErrorType]>]
+    
+    // Optional
+    private var _googleClientID: String? = nil
+    public var googleClientID: String? {
+        get {
+            return _googleClientID
+        }
+        set {
+            if let newValue {
+                GIDSignIn.sharedInstance.configuration = GIDConfiguration(clientID: newValue)
+            }
+            _googleClientID = newValue
+        }
+    }
     
     @MainActor public func getError(_ type: BackendErrorType?) -> BackendError<String>? {
         guard let type, let config = Backend.shared.config else {

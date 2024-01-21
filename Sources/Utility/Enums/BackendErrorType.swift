@@ -28,4 +28,5 @@ public enum BackendErrorType: String, Error {
     case NoUserDetails
     case CannotSaveUserDetails
     case SignInWithAppleFailed
+    case SignInWithGoogleFailed
 }
