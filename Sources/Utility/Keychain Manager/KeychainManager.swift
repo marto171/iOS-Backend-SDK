@@ -77,6 +77,7 @@ class KeychainManager {
         if let encodedData = JSONCoder.encode(object) {
             do {
                 try Self.save(service: service, account: account, data: encodedData)
+                print("Keychaing custom object successfully saved!")
             } catch {
                 print("Error saving to keychain: \(error)")
             }

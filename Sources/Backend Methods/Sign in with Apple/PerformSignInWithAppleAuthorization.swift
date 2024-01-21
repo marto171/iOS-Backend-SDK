@@ -24,6 +24,7 @@ extension Backend {
     ) async {
         let cachedData: SignInWithAppleUserDataBackup? = KeychainManager.getCustomObject(service: config!.bundleId, account: "signInWithAppleCredential")
         
+        print("CACHED DATA: \(cachedData)")
         print("SIGN IN WITH APPLE EMAIL: \(String(describing: email))")
         
         if let cachedData, email == nil {
@@ -79,6 +80,7 @@ extension Backend {
         case .failure(let error):
             let backendError = config!.getError(.SignInWithAppleFailed) ?? BackendError(type: .Custom, localizedDescription: error.localizedDescription)
             await callback(.failure(backendError))
+            cacheData(userId: userId, name: name, email: email, status: status)
             return .failure(backendError)
         }
         
@@ -118,6 +120,14 @@ extension Backend {
             config!.getError(.SignInWithAppleFailed) ?? K.SDKError.noAPIConnectionError)
         )
         
+    }
+    
+    func cacheData(userId: String, name: String?, email: String?, status: Int?) {
+        let cachedData: SignInWithAppleUserDataBackup = .init(userId: userId,
+                                                              name: name,
+                                                              email: email,
+                                                              status: status)
+        KeychainManager.saveCustomObject(service: config!.bundleId, account: "signInWithAppleCredential", object: cachedData)
     }
     
 }

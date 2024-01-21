@@ -8,8 +8,6 @@
 import Foundation
 
 class BackendVariables {
-    
     var signInWithAppleNonce: Nonce? = nil
     var signInWithAppleState: Nonce? = nil
-    
 }
