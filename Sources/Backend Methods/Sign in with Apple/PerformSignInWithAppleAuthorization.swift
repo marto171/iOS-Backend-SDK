@@ -63,7 +63,7 @@ extension Backend {
         let requestIdentityToken = String(data: identityToken ?? JSONCoder.encode("No identity token available")!, encoding: .ascii)!
         let requestAuthCode = String(data: authCode ?? JSONCoder.encode("No authorization code available")!, encoding: .ascii)!
         
-        let request: Result<SignInWithAppleResponse, NetworkError> = await Request.post(url: "\(config!.baseUrl)/\(config!.language)/api/v1/user/oauth2/apple", body: SignInWithAppleRequest(
+        let body = SignInWithAppleRequest(
             name: name,
             email: email,
             nonce: requestNonce,
@@ -71,6 +71,10 @@ extension Backend {
             authCode: requestAuthCode,
             deviceToken: self.config!.deviceToken
             )
+        
+        print("SIGN IN WITH APPLE BODY: \(body)")
+        
+        let request: Result<SignInWithAppleResponse, NetworkError> = await Request.post(url: "\(config!.baseUrl)/\(config!.language)/api/v1/user/oauth2/apple", body: body
         )
         
         switch request {
