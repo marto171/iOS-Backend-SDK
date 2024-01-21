@@ -52,11 +52,12 @@ public struct BackendConfig: Config {
         return getError(BackendErrorType(rawValue: identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: message ?? K.SDKMessage.genericMessage)
     }
     
-    public init(bundleId: String, deviceToken: String, baseUrl: String, language: String, errors: [BackendError<[BackendLocalizedErrorType]>]) {
+    public init(bundleId: String, deviceToken: String, baseUrl: String, language: String, googleClientID: String? = nil, errors: [BackendError<[BackendLocalizedErrorType]>]) {
         self.bundleId = bundleId
         self.deviceToken = deviceToken
         self.baseUrl = baseUrl
         self.language = language
+        self._googleClientID = googleClientID
         self.errors = errors
     }
 }
