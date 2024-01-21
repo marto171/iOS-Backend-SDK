@@ -57,7 +57,11 @@ public struct BackendConfig: Config {
         self.deviceToken = deviceToken
         self.baseUrl = baseUrl
         self.language = language
-        self._googleClientID = googleClientID
         self.errors = errors
+        
+        if let googleClientID {
+            self._googleClientID = googleClientID
+            GIDSignIn.sharedInstance.configuration = GIDConfiguration(clientID: self._googleClientID!)
+        }
     }
 }
