@@ -87,7 +87,7 @@ extension Backend {
                 )
                 
                 await callback(.failure(backendError))
-                return .success(Void())
+                return .failure(backendError)
             }
         case .failure(let error):
             let backendError = config!.getError(.SignInWithAppleFailed) ?? BackendError(type: .Custom, localizedDescription: error.localizedDescription)
