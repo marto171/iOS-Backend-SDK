@@ -26,6 +26,9 @@ extension Backend {
                     name = "\(firstName) \(lastName)"
                 }
                 
+                print("AUTHORIZATION CODE: \(String(describing: credential.authorizationCode))")
+                print("IDENTITY CODE: \(String(describing: credential.identityToken))")
+                
                 await performSignInWithAppleAuthorization(
                     appleUserId: credential.user,
                     name: name,
