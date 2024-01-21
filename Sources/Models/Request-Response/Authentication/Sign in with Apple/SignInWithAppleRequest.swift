@@ -12,6 +12,6 @@ struct SignInWithAppleRequest: Codable {
     let email: String?
     let nonce: String
     let identityToken: String
-    let authCode: String
+    let authorizationCode: String
     let deviceToken: String?
 }

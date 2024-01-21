@@ -68,11 +68,9 @@ extension Backend {
             email: email,
             nonce: requestNonce,
             identityToken: requestIdentityToken,
-            authCode: requestAuthCode,
+            authorizationCode: requestAuthCode,
             deviceToken: self.config!.deviceToken
             )
-        
-        print("SIGN IN WITH APPLE BODY: \(body)")
         
         let request: Result<SignInWithAppleResponse, NetworkError> = await Request.post(url: "\(config!.baseUrl)/\(config!.language)/api/v1/user/oauth2/apple", body: body
         )
