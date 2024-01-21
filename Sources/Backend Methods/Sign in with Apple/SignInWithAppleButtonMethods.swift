@@ -38,6 +38,11 @@ extension Backend {
                         case .success(let response):
                             await callback(.success(response))
                         case .failure(let error):
+                            cacheData(userId: credential.user,
+                                      name: name,
+                                      email: credential.email,
+                                      status: credential.realUserStatus.rawValue
+                            )
                             await callback(.failure(
                                 config!.getError(.SignInWithAppleFailed) ?? BackendError(type: .Custom, localizedDescription: error.localizedDescription))
                             )
@@ -54,5 +59,13 @@ extension Backend {
                 config!.getError(.SignInWithAppleFailed) ?? K.SDKError.noAPIConnectionError)
             )
         }
+    }
+    
+    func cacheData(userId: String, name: String?, email: String?, status: Int?) {
+        let cachedData: SignInWithAppleUserDataBackup = .init(userId: userId,
+                                                              name: name,
+                                                              email: email,
+                                                              status: status)
+        KeychainManager.saveCustomObject(service: config!.bundleId, account: "signInWithAppleCredential", object: cachedData)
     }
 }
