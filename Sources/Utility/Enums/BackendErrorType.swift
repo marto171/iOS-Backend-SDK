@@ -30,4 +30,5 @@ public enum BackendErrorType: String, Error {
     case SignInWithAppleFailed
     case SignInWithGoogleFailed
     case AccountDeletionFailed
+    case LogoutFailed
 }
