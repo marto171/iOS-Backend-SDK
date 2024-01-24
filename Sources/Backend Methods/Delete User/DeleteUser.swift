@@ -26,7 +26,7 @@ extension Backend {
             }
         }
         
-        let request: Result<DeleteAccountResponse, NetworkError>? = await Request.delete(url: "\(config.baseUrl)/v1/user/me", authToken: user.token ?? "")
+        let request: Result<DeleteAccountResponse, NetworkError>? = await Request.delete(url: "\(config.baseUrl)/en/api/v1/user/me", authToken: user.token ?? "")
         guard let request else {
             await callback(.failure(config.getError(.AccountDeletionFailed) ?? K.SDKError.noAPIConnectionError))
             return
