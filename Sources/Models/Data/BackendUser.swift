@@ -9,8 +9,10 @@ import Foundation
 
 public class BackendUser: Codable {
     public var _id: String
+    public var oauthProviderUserId: String
     public var token: String?
     public var name: String
     public var email: String
     public var photo: String
+    public var oauthProvider: String
 }
