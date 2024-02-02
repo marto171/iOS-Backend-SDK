@@ -17,12 +17,12 @@ extension Backend {
             return
         }
         
-        let request: Result<CreateUserDetailsResponse, NetworkError>? = await Request.post(url: "\(config.baseUrl)/\(config.language)/api/v1/user/\(userId)/details", body: CreateUserDetailsRequest(userId: userId), authToken: token)
-        
-        guard let request else {
-            callback(.failure(K.SDKError.noAPIConnectionError))
-            return
-        }
+        let request: Result<CreateUserDetailsResponse, NetworkError> = await Request.post(
+            url: "\(config.baseUrl)/\(config.language)/api/v1/user/\(userId)/details",
+            body: CreateUserDetailsRequest(userId: userId),
+            authToken: token,
+            debugMode: config.debugMode
+        )
         
         switch request {
         case .success(let response):

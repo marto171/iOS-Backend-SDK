@@ -51,11 +51,13 @@ extension Backend {
         
     }
     
-    func sendTokenToServer(_ token: String) async -> Result<SignInWithGoogleResponse, NetworkError> {
+    private func sendTokenToServer(_ token: String) async -> Result<SignInWithGoogleResponse, NetworkError> {
         
         let request: Result<SignInWithGoogleResponse, NetworkError>? = await Request.post(
             url: "\(config!.baseUrl)/en/api/v1/user/oauth2/google",
-            body: SignInWithGoogleRequest(idToken: token)
+            body: SignInWithGoogleRequest(idToken: token),
+            authToken: nil,
+            debugMode: config!.debugMode
         )
         guard let request else {
             return .failure(.networkError)

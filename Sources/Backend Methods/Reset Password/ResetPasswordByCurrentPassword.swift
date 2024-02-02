@@ -15,7 +15,12 @@ extension Backend {
             return
         }
         
-        let request: Result<ChangePasswordResponse, NetworkError> = await Request.patch(url: "\(config.baseUrl)/\(config.language)/api/v1/user/updatePassword", body: SettingsChangePasswordRequest(currentPassword: password, newPassword: newPassword, newPasswordConfirm: newPasswordConfirm), authToken: authToken)
+        let request: Result<ChangePasswordResponse, NetworkError> = await Request.patch(
+            url: "\(config.baseUrl)/\(config.language)/api/v1/user/updatePassword",
+            body: SettingsChangePasswordRequest(currentPassword: password, newPassword: newPassword, newPasswordConfirm: newPasswordConfirm),
+            authToken: authToken,
+            debugMode: config.debugMode
+        )
         
         switch request {
         case .success(let response):

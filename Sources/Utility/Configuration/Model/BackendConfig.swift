@@ -9,6 +9,7 @@ import Foundation
 import GoogleSignIn
 
 public struct BackendConfig: Config {
+    public var debugMode: Bool
     public var bundleId: String
     public var deviceToken: String
     public var baseUrl: String
@@ -52,7 +53,8 @@ public struct BackendConfig: Config {
         return getError(BackendErrorType(rawValue: identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: message ?? K.SDKMessage.genericMessage)
     }
     
-    public init(bundleId: String, deviceToken: String, baseUrl: String, language: String, googleClientID: String? = nil, errors: [BackendError<[BackendLocalizedErrorType]>]) {
+    public init(debugMode: Bool = false, bundleId: String, deviceToken: String, baseUrl: String, language: String, googleClientID: String? = nil, errors: [BackendError<[BackendLocalizedErrorType]>]) {
+        self.debugMode = debugMode
         self.bundleId = bundleId
         self.deviceToken = deviceToken
         self.baseUrl = baseUrl

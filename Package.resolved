@@ -42,7 +42,7 @@
       "location" : "https://github.com/ikok07/JSONCoder.git",
       "state" : {
         "branch" : "main",
-        "revision" : "26a45081da11a77cdc71866567aca6b2c3471fa6"
+        "revision" : "6e4a51f37443cbec204b70dc233723f643157b58"
       }
     },
     {
@@ -51,7 +51,7 @@
       "location" : "https://github.com/ikok07/NetworkRequests.git",
       "state" : {
         "branch" : "main",
-        "revision" : "3f779bd50a9f9a61fc8b897e5c51fa608d269b0b"
+        "revision" : "5d9b39e5e0bb59b9eb5a9b638010044600ab8149"
       }
     },
     {

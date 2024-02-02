@@ -15,7 +15,12 @@ extension Backend {
             return
         }
         
-        let request: Result<ConfirmAuthResponse, NetworkError> = await Request.post(url: "\(config.baseUrl)/\(config.language)/api/v1/user/password/reset", body: EmailAuthRequest(email: email))
+        let request: Result<ConfirmAuthResponse, NetworkError> = await Request.post(
+            url: "\(config.baseUrl)/\(config.language)/api/v1/user/password/reset",
+            body: EmailAuthRequest(email: email),
+            authToken: nil,
+            debugMode: config.debugMode
+        )
         
         switch request {
         case .success(let response):

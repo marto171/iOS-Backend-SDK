@@ -22,7 +22,12 @@ extension Backend {
         identityToken: Data?,
         callback: (Result<SignInWithAppleResponse, BackendError<String>>) async -> Void
     ) async {
-        let cachedData: SignInWithAppleUserDataBackup? = KeychainManager.getCustomObject(service: config!.bundleId, account: "signInWithAppleCredential")
+        guard let config else {
+            await callback(.failure(K.SDKError.noConfigError))
+            return
+        }
+        
+        let cachedData: SignInWithAppleUserDataBackup? = KeychainManager.getCustomObject(service: config.bundleId, account: "signInWithAppleCredential")
         
         print("CACHED DATA: \(cachedData)")
         print("SIGN IN WITH APPLE EMAIL: \(String(describing: email))")
@@ -49,7 +54,7 @@ extension Backend {
         }
     }
     
-    func signInWithApple(
+    private func signInWithApple(
         userId: String,
         name: String?,
         email: String?,
@@ -72,7 +77,11 @@ extension Backend {
             deviceToken: self.config!.deviceToken
             )
         
-        let request: Result<SignInWithAppleResponse, NetworkError> = await Request.post(url: "\(config!.baseUrl)/\(config!.language)/api/v1/user/oauth2/apple", body: body
+        let request: Result<SignInWithAppleResponse, NetworkError> = await Request.post(
+            url: "\(config!.baseUrl)/\(config!.language)/api/v1/user/oauth2/apple",
+            body: body,
+            authToken: nil,
+            debugMode: config!.debugMode
         )
         
         switch request {

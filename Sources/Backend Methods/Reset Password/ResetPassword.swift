@@ -15,7 +15,12 @@ extension Backend {
             return
         }
         
-        let request: Result<ConfirmAuthResponse, NetworkError> = await Request.patch(url: "\(config.baseUrl)/\(config.language)/api/v1/user/password/reset/\(token)", body: ResetPasswordRequest(email: email, password: password, passwordConfirm: confirmPassword, deviceToken: deviceToken, appSecurityTokenId: appSecurityTokenId))
+        let request: Result<ConfirmAuthResponse, NetworkError> = await Request.patch(
+            url: "\(config.baseUrl)/\(config.language)/api/v1/user/password/reset/\(token)",
+            body: ResetPasswordRequest(email: email, password: password, passwordConfirm: confirmPassword, deviceToken: deviceToken, appSecurityTokenId: appSecurityTokenId),
+            authToken: nil,
+            debugMode: config.debugMode
+        )
         
         switch request {
         case .success(let response):

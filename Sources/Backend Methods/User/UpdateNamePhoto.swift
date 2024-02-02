@@ -16,12 +16,14 @@ extension Backend {
             return
         }
         
-        let request: Result<ProfileDataResponse, NetworkError>? = await Request.patchFormData(url: "\(config.baseUrl)/\(config.language)/api/v1/user/me", json: name.data(using: .utf8)!, image: image, authToken: authToken)
-        
-        guard let request else {
-            await callback(.failure(K.SDKError.noAPIConnectionError))
-            return
-        }
+        let request: Result<ProfileDataResponse, NetworkError> = await Request.formData(
+            httpMethod: "PATCH",
+            url: "\(config.baseUrl)/\(config.language)/api/v1/user/me",
+            json: name.data(using: .utf8)!,
+            image: image,
+            authToken: authToken,
+            debugMode: config.debugMode
+        )
         
         switch request {
         case .success(let response):

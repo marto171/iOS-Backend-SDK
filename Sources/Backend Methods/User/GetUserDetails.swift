@@ -17,7 +17,11 @@ extension Backend {
             return
         }
         
-        let request: Result<GetUserDetailsResponse, NetworkError> = await Request.get(url: "\(config.baseUrl)/\(config.language)/api/v1/user/\(userId)/details", authToken: authToken)
+        let request: Result<GetUserDetailsResponse, NetworkError> = await Request.get(
+            url: "\(config.baseUrl)/\(config.language)/api/v1/user/\(userId)/details",
+            authToken: authToken,
+            debugMode: config.debugMode
+        )
         
         switch request {
         case .success(let response):
