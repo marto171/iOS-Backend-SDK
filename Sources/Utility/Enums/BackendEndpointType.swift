@@ -7,16 +7,16 @@
 
 import Foundation
 
-public enum BackendEndpointType: Equatable {
+public enum BackendEndpointType {
     // Before Auth
     case login
-    case loginConfirm(token: String)
+    case loginConfirm
     case signup
-    case emailConfirm(token: String)
+    case emailConfirm
     case resendConfirmEmail
     case logout
     case requestResetPassword
-    case resetPassword(token: String)
+    case resetPassword
     case resetPasswordByCurrentOne
     case signInWithApple
     case signInWithGoogle

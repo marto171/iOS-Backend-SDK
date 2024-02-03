@@ -13,7 +13,7 @@ public struct BackendConfig {
     public var bundleId: String
     public var deviceToken: String
     public var language: String
-    public var endpoints: BackendEndpoints
+    public var backendUrls: BackendUrls
     public var errors: [BackendError<[BackendLocalizedErrorType]>]
     
     // Optional
@@ -31,8 +31,10 @@ public struct BackendConfig {
     }
     
     // Endpoints
-    public func getEndpoint(for endpointType: BackendEndpointType) -> String {
-        return "\(self.endpoints.baseUrl)\(self.endpoints.constantPrefix ?? "")\(self.endpoints.endpoints.first(where: { $0.types.contains(endpointType) })!)"
+    public func getEndpoint(for endpointType: BackendEndpointType, parameters: [String: String]? = nil) -> String {
+        var endpoint = self.backendUrls.endpoints.first(where: { $0.types.contains(endpointType) })!
+        endpoint.parameters = parameters
+        return "\(self.backendUrls.baseUrl)\(self.backendUrls.constantPrefix ?? "")\(endpoint)"
     }
     
     
@@ -66,14 +68,14 @@ public struct BackendConfig {
         deviceToken: String,
         language: String,
         googleClientID: String? = nil,
-        endpoints: BackendEndpoints,
+        backendUrls: BackendUrls,
         errors: [BackendError<[BackendLocalizedErrorType]>]
     ) {
         self.debugMode = debugMode
         self.bundleId = bundleId
         self.deviceToken = deviceToken
         self.language = language
-        self.endpoints = endpoints
+        self.backendUrls = backendUrls
         self.errors = errors
         
         if let googleClientID {

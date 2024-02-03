@@ -17,11 +17,14 @@ public struct BackendEndpoint {
     public let types: [BackendEndpointType]
     public let version: BackendEndpointVersion
     public let path: String
-    public let parameters: [String: String]
+    
+    var parameters: [String: String]?
     var string: String {
         var finalPath: String = path
-        for (key, value) in parameters {
-            finalPath = finalPath.replacingOccurrences(of: "{\(key)}", with: "\(value)")
+        if let parameters {
+            for (key, value) in parameters {
+                finalPath = finalPath.replacingOccurrences(of: "{\(key)}", with: "\(value)")
+            }
         }
         return "\(version)\(finalPath)"
     }
@@ -38,7 +41,7 @@ public struct BackendEndpoint {
 /// @param baseUrl: "https://example.com"
 /// @param constantPrefix: "/en/api/"
 /// @param endpoints: Array of endpoint objects
-public struct BackendEndpoints {
+public struct BackendUrls {
     
     public let baseUrl: String
     public let constantPrefix: String?
