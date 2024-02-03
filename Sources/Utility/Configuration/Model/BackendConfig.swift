@@ -39,6 +39,7 @@ public struct BackendConfig {
     
     
     //Errors
+    @MainActor
     public func getError(_ type: BackendErrorType?) -> BackendError<String>? {
         guard let type, let config = Backend.shared.config else {
             return nil
@@ -58,6 +59,7 @@ public struct BackendConfig {
         return nil
     }
     
+    @MainActor 
     public func getNormalRequestError(identifier: String?, message: String?) -> BackendError<String> {
         return getError(BackendErrorType(rawValue: identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: message ?? K.SDKMessage.genericMessage)
     }

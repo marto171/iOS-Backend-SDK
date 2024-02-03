@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 public struct Backend {
     public var config: BackendConfig?
     
