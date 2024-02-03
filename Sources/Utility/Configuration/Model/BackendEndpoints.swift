@@ -9,15 +9,16 @@ import Foundation
 
 
 
-/// @param type: The type of the endpoint
-/// @param version: The version of the endpoint
+/// @param type: .getUser
+/// @param version: .v1
+/// @param path: "/user/me"
 /// @param string: String version of the endpoint
 public struct BackendEndpoint {
     public let types: [BackendEndpointType]
     public let version: BackendEndpointVersion
     public let path: String
     var string: String {
-        return "\(version)/\(path)"
+        return "\(version)\(path)"
     }
     
     public init(types: [BackendEndpointType], version: BackendEndpointVersion, path: String) {
