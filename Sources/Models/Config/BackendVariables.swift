@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Toolchain
 
 class BackendVariables {
     var signInWithAppleNonce: Nonce? = nil

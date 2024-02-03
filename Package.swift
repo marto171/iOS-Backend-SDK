@@ -16,6 +16,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/ikok07/JSONCoder.git", branch: "main"),
         .package(url: "https://github.com/ikok07/NetworkRequests.git", branch: "main"),
+        .package(url: "https://github.com/ikok07/Toolchain.git", branch: "main"),
         .package(url: "https://github.com/google/GoogleSignIn-iOS", exact: .init("7.0.0")!),
     ],
     targets: [
@@ -24,6 +25,7 @@ let package = Package(
             dependencies: [
                 .product(name: "JSONCoder", package: "JSONCoder"),
                 .product(name: "NetworkRequests", package: "NetworkRequests"),
+                .product(name: "Toolchain", package: "Toolchain"),
                 .product(name: "GoogleSignIn", package: "GoogleSignIn-IOS")
             ]
         ),

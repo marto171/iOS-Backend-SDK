@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Toolchain
 
 struct ImageMedia: Codable {
     let key: String
@@ -14,8 +15,9 @@ struct ImageMedia: Codable {
     let mimeType: String
     
     init(withImage image: UIImage?, key: String) {
+        let fixedImage = image?.getFixedImage()
         self.key = key
         self.mimeType = "image/jpeg"
-        self.data = image?.jpegData(compressionQuality: 0.3)
+        self.data = fixedImage?.jpegData(compressionQuality: 0.3)
     }
 }
