@@ -29,11 +29,10 @@ public struct BackendEndpoint {
         return "\(version)\(finalPath)"
     }
     
-    public init(types: [BackendEndpointType], version: BackendEndpointVersion, path: String, parameters: [String: String]) {
+    public init(types: [BackendEndpointType], version: BackendEndpointVersion, path: String) {
         self.types = types
         self.version = version
         self.path = path
-        self.parameters = parameters
     }
 }
 
