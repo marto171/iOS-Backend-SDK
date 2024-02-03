@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum BackendEndpointType {
+public enum BackendEndpointType: CaseIterable {
     // Before Auth
     case login
     case loginConfirm

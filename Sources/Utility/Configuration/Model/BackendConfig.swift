@@ -32,9 +32,13 @@ public struct BackendConfig {
     
     // Endpoints
     public func getEndpoint(for endpointType: BackendEndpointType, parameters: [String: String]? = nil) -> String {
-        var endpoint = self.backendUrls.endpoints.first(where: { $0.types.contains(endpointType) })!
-        endpoint.parameters = parameters
-        return "\(self.backendUrls.baseUrl)\(self.backendUrls.constantPrefix ?? "")\(endpoint.string)"
+        var endpoint = self.backendUrls.endpoints.first(where: { $0.types.contains(endpointType) })
+        if var endpoint {
+            endpoint.parameters = parameters
+            return "\(self.backendUrls.baseUrl)\(self.backendUrls.constantPrefix ?? "")\(endpoint.string)"
+        } else {
+            fatalError("NO URL OF TYPE: \(endpointType) FOUND. YOU NEED TO ADD IT IN THE BACKEND CONFIG OBJECT!")
+        }
     }
     
     
@@ -59,7 +63,7 @@ public struct BackendConfig {
         return nil
     }
     
-    @MainActor 
+    @MainActor
     public func getNormalRequestError(identifier: String?, message: String?) -> BackendError<String> {
         return getError(BackendErrorType(rawValue: identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: message ?? K.SDKMessage.genericMessage)
     }
