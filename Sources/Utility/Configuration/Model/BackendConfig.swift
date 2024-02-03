@@ -34,7 +34,7 @@ public struct BackendConfig {
     public func getEndpoint(for endpointType: BackendEndpointType, parameters: [String: String]? = nil) -> String {
         var endpoint = self.backendUrls.endpoints.first(where: { $0.types.contains(endpointType) })!
         endpoint.parameters = parameters
-        return "\(self.backendUrls.baseUrl)\(self.backendUrls.constantPrefix ?? "")\(endpoint)"
+        return "\(self.backendUrls.baseUrl)\(self.backendUrls.constantPrefix ?? "")\(endpoint.string)"
     }
     
     
