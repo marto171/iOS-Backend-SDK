@@ -16,7 +16,7 @@ extension Backend {
         }
         
         let request: Result<ConfirmAuthResponse, NetworkError> = await Request.patch(
-            url: config.getEndpoint(for: .resetPassword(token: token)),
+            url: config.getEndpoint(for: .resetPassword, parameters: ["token": token]),
             body: ResetPasswordRequest(email: email, password: password, passwordConfirm: confirmPassword, deviceToken: deviceToken, appSecurityTokenId: appSecurityTokenId),
             authToken: nil,
             debugMode: config.debugMode

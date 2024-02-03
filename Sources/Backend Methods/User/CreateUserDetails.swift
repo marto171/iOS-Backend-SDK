@@ -18,7 +18,7 @@ extension Backend {
         }
         
         let request: Result<CreateUserDetailsResponse, NetworkError> = await Request.post(
-            url: config.getEndpoint(for: .createUserDetails),
+            url: config.getEndpoint(for: .createUserDetails, parameters: ["userId": userId]),
             body: CreateUserDetailsRequest(userId: userId),
             authToken: token,
             debugMode: config.debugMode
