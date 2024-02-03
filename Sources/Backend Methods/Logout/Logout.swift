@@ -16,23 +16,22 @@ extension Backend {
             return
         }
         
-        let request: Result<BackendEmptyResponse, NetworkError>? = await Request.post(
+        let request: Result<BackendEmptyResponse, NetworkError> = await Request.post(
             url: "\(config.baseUrl)/en/api/v1/user/logout",
             body: LogoutRequest(deviceToken: deviceToken),
             authToken: userToken,
             debugMode: config.debugMode
         )
-        guard let request else {
-            await callback(.failure(config.getError(.LogoutFailed) ?? K.SDKError.noAPIConnectionError))
-            return
-        }
         
-        if case .success(let response) = request {
-            if response.status == "success" { 
+        switch request {
+        case .success(let response):
+            if response.status == "success" {
                 await callback(.success(Void()))
             } else {
                 await callback(.failure(config.getError(.LogoutFailed) ?? K.SDKError.noAPIConnectionError))
             }
+        case .failure(let error):
+            await callback(.failure(BackendError(type: .Custom, localizedDescription: error.localizedDescription)))
         }
     }
     
