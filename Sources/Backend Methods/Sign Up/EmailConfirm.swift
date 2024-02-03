@@ -16,7 +16,7 @@ extension Backend {
         }
         
         let request: Result<ConfirmAuthResponse, NetworkError> = await Request.post(
-            url: "\(config.baseUrl)/\(config.language)/api/v2/user/email/confirm/\(token)",
+            url: config.getEndpoint(for: .emailConfirm(token: token)),
             body: EmailAuthRequest(email: email, deviceToken: deviceToken, appSecurityTokenId: appSecurityTokenId),
             authToken: nil,
             debugMode: config.debugMode

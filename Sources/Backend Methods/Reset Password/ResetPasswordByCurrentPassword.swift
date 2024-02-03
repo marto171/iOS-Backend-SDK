@@ -16,7 +16,7 @@ extension Backend {
         }
         
         let request: Result<ChangePasswordResponse, NetworkError> = await Request.patch(
-            url: "\(config.baseUrl)/\(config.language)/api/v1/user/updatePassword",
+            url: config.getEndpoint(for: .resetPasswordByCurrentOne),
             body: SettingsChangePasswordRequest(currentPassword: password, newPassword: newPassword, newPasswordConfirm: newPasswordConfirm),
             authToken: authToken,
             debugMode: config.debugMode

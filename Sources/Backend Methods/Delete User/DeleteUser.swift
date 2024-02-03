@@ -27,7 +27,7 @@ extension Backend {
         }
         
         let request: Result<DeleteAccountResponse, NetworkError>? = await Request.delete(
-            url: "\(config.baseUrl)/en/api/v1/user/me",
+            url: config.getEndpoint(for: .deleteUser),
             authToken: user.token ?? "",
             debugMode: config.debugMode
         )

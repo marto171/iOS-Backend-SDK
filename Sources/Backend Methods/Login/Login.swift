@@ -16,7 +16,7 @@ extension Backend {
         }
         
         let request: Result<LoginResponse, NetworkError> = await Request.post(
-            url: "\(config.baseUrl)/\(config.language)/api/v2/user/login",
+            url: config.getEndpoint(for: .login),
             body: LoginRequest(email: email, password: password),
             authToken: nil,
             debugMode: config.debugMode

@@ -16,7 +16,7 @@ extension Backend {
         }
         
         let request: Result<SignUpResponse, NetworkError> = await Request.post(
-            url: "\(config.baseUrl)/\(config.language)/api/v2/user/signup/basic",
+            url: config.getEndpoint(for: .signup),
             body: SignUpRequest(
                 name: name,
                 email: email,

@@ -29,7 +29,7 @@ extension Backend {
         
         let cachedData: SignInWithAppleUserDataBackup? = KeychainManager.getCustomObject(service: config.bundleId, account: "signInWithAppleCredential")
         
-        print("CACHED DATA: \(cachedData)")
+        print("CACHED DATA: \(String(describing: cachedData))")
         print("SIGN IN WITH APPLE EMAIL: \(String(describing: email))")
         
         if let cachedData, email == nil {
@@ -64,6 +64,11 @@ extension Backend {
         identityToken: Data?,
         callback: (Result<SignInWithAppleResponse, BackendError<String>>) async -> Void
     ) async -> Result<Void, BackendError<String>>{
+        guard let config else {
+            await callback(.failure(K.SDKError.noConfigError))
+            return .failure(K.SDKError.noConfigError)
+        }
+        
         let requestNonce = nonceString ?? "No nonce value"
         let requestIdentityToken = String(data: identityToken ?? JSONCoder.encode("No identity token available")!, encoding: .ascii)!
         let requestAuthCode = String(data: authCode ?? JSONCoder.encode("No authorization code available")!, encoding: .ascii)!
@@ -78,10 +83,10 @@ extension Backend {
             )
         
         let request: Result<SignInWithAppleResponse, NetworkError> = await Request.post(
-            url: "\(config!.baseUrl)/\(config!.language)/api/v1/user/oauth2/apple",
+            url: config.getEndpoint(for: .signInWithApple),
             body: body,
             authToken: nil,
-            debugMode: config!.debugMode
+            debugMode: config.debugMode
         )
         
         switch request {
@@ -91,7 +96,7 @@ extension Backend {
                 await callback(.success(response))
                 return .success(Void())
             } else {
-                let backendError = config!.getError(.SignInWithAppleFailed) ?? BackendError(type: .Custom, localizedDescription: response.message ?? "")
+                let backendError = config.getError(.SignInWithAppleFailed) ?? BackendError(type: .Custom, localizedDescription: response.message ?? "")
                 cacheData(userId: userId,
                           name: name,
                           email: email,
@@ -102,7 +107,7 @@ extension Backend {
                 return .failure(backendError)
             }
         case .failure(let error):
-            let backendError = config!.getError(.SignInWithAppleFailed) ?? BackendError(type: .Custom, localizedDescription: error.localizedDescription)
+            let backendError = config.getError(.SignInWithAppleFailed) ?? BackendError(type: .Custom, localizedDescription: error.localizedDescription)
             cacheData(userId: userId,
                       name: name,
                       email: email,

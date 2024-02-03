@@ -18,7 +18,7 @@ extension Backend {
         
         let request: Result<ProfileDataResponse, NetworkError> = await Request.formData(
             httpMethod: "PATCH",
-            url: "\(config.baseUrl)/\(config.language)/api/v1/user/me",
+            url: config.getEndpoint(for: .updateUser),
             json: name.data(using: .utf8)!,
             image: image,
             authToken: authToken,

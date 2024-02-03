@@ -16,7 +16,7 @@ extension Backend {
         }
         
         let request: Result<ResendConfirmEmailResponse, NetworkError> = await Request.post(
-            url: "\(config.baseUrl)/\(config.language)/api/v2/user/email/resend",
+            url: config.getEndpoint(for: .resendConfirmEmail),
             body: ResendConfirmEmailRequest(email: email),
             authToken: nil,
             debugMode: config.debugMode

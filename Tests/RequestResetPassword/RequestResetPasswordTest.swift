@@ -11,18 +11,18 @@ final class SignupTest: XCTestCase {
         print("------------------REQUESTRESETPASSWORD--------------------")
         print("------------------REQUESTRESETPASSWORD--------------------")
         
-        Backend.shared.config = BackendConfig(baseUrl: "https://api.wellsavor.com", language: "en", errors: [
-            BackendError(type: .EmailAlreadyExists, localizedDescription: [
-                LocalizedError(language: "en", localizedDescription: "Working email already exists."),
-                LocalizedError(language: "bg", localizedDescription: "Работи email already exists."),
-                LocalizedError(language: "de", localizedDescription: "Arbeitet email already exists.")
-            ]),
-            BackendError(type: .IncorrectCredentials, localizedDescription: [
-                LocalizedError(language: "en", localizedDescription: "Working email or password is not correct!"),
-                LocalizedError(language: "bg", localizedDescription: "Работи email or password is not correct!"),
-                LocalizedError(language: "de", localizedDescription: "Arbeitet email or password is not correct!")
-            ])
-        ])
+//        Backend.shared.config = BackendConfig(baseUrl: "https://api.wellsavor.com", language: "en", errors: [
+//            BackendError(type: .EmailAlreadyExists, localizedDescription: [
+//                LocalizedError(language: "en", localizedDescription: "Working email already exists."),
+//                LocalizedError(language: "bg", localizedDescription: "Работи email already exists."),
+//                LocalizedError(language: "de", localizedDescription: "Arbeitet email already exists.")
+//            ]),
+//            BackendError(type: .IncorrectCredentials, localizedDescription: [
+//                LocalizedError(language: "en", localizedDescription: "Working email or password is not correct!"),
+//                LocalizedError(language: "bg", localizedDescription: "Работи email or password is not correct!"),
+//                LocalizedError(language: "de", localizedDescription: "Arbeitet email or password is not correct!")
+//            ])
+//        ])
         
         await Backend.shared.requestResetPassword(email: "georgievmarti21@gmail.com") { status in
             switch status {

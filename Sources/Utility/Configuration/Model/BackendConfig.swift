@@ -8,12 +8,12 @@
 import Foundation
 import GoogleSignIn
 
-public struct BackendConfig: Config {
+public struct BackendConfig {
     public var debugMode: Bool
     public var bundleId: String
     public var deviceToken: String
-    public var baseUrl: String
     public var language: String
+    public var endpoints: BackendEndpoints
     public var errors: [BackendError<[BackendLocalizedErrorType]>]
     
     // Optional
@@ -30,7 +30,14 @@ public struct BackendConfig: Config {
         }
     }
     
-    @MainActor public func getError(_ type: BackendErrorType?) -> BackendError<String>? {
+    // Endpoints
+    public func getEndpoint(for endpointType: BackendEndpointType) -> String {
+        return "\(self.endpoints.baseUrl)\(self.endpoints.constantPrefix ?? "")\(self.endpoints.endpoints.first(where: { $0.types.contains(endpointType) })!)"
+    }
+    
+    
+    //Errors
+    public func getError(_ type: BackendErrorType?) -> BackendError<String>? {
         guard let type, let config = Backend.shared.config else {
             return nil
         }
@@ -49,16 +56,24 @@ public struct BackendConfig: Config {
         return nil
     }
     
-    @MainActor public func getNormalRequestError(identifier: String?, message: String?) -> BackendError<String> {
+    public func getNormalRequestError(identifier: String?, message: String?) -> BackendError<String> {
         return getError(BackendErrorType(rawValue: identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: message ?? K.SDKMessage.genericMessage)
     }
     
-    public init(debugMode: Bool = false, bundleId: String, deviceToken: String, baseUrl: String, language: String, googleClientID: String? = nil, errors: [BackendError<[BackendLocalizedErrorType]>]) {
+    public init(
+        debugMode: Bool = false,
+        bundleId: String,
+        deviceToken: String,
+        language: String,
+        googleClientID: String? = nil,
+        endpoints: BackendEndpoints,
+        errors: [BackendError<[BackendLocalizedErrorType]>]
+    ) {
         self.debugMode = debugMode
         self.bundleId = bundleId
         self.deviceToken = deviceToken
-        self.baseUrl = baseUrl
         self.language = language
+        self.endpoints = endpoints
         self.errors = errors
         
         if let googleClientID {

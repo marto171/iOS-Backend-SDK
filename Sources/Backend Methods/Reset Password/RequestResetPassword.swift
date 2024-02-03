@@ -16,7 +16,7 @@ extension Backend {
         }
         
         let request: Result<ConfirmAuthResponse, NetworkError> = await Request.post(
-            url: "\(config.baseUrl)/\(config.language)/api/v1/user/password/reset",
+            url: config.getEndpoint(for: .requestResetPassword),
             body: EmailAuthRequest(email: email),
             authToken: nil,
             debugMode: config.debugMode

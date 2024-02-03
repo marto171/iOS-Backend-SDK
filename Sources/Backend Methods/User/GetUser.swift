@@ -16,7 +16,7 @@ extension Backend {
         }
         
         let request: Result<GetUserDataResponse, NetworkError> = await Request.get(
-            url: "\(config.baseUrl)/\(config.language)/api/v1/user/me",
+            url: config.getEndpoint(for: .getUser),
             authToken: authToken,
             debugMode: config.debugMode
         )

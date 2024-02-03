@@ -7,7 +7,7 @@
 
 import Foundation
 
-@MainActor public struct Backend {
+public struct Backend {
     public var config: BackendConfig?
     
     public static var shared: Backend = Backend()

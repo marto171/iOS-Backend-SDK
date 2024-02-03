@@ -17,7 +17,7 @@ extension Backend {
         }
         
         let request: Result<BackendEmptyResponse, NetworkError> = await Request.post(
-            url: "\(config.baseUrl)/en/api/v1/user/logout",
+            url: config.getEndpoint(for: .logout),
             body: LogoutRequest(deviceToken: deviceToken),
             authToken: userToken,
             debugMode: config.debugMode
