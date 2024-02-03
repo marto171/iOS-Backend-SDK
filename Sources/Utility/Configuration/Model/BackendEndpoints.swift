@@ -17,14 +17,20 @@ public struct BackendEndpoint {
     public let types: [BackendEndpointType]
     public let version: BackendEndpointVersion
     public let path: String
+    public let parameters: [String: String]
     var string: String {
-        return "\(version)\(path)"
+        var finalPath: String = path
+        for (key, value) in parameters {
+            finalPath = finalPath.replacingOccurrences(of: "{\(key)}", with: "\(value)")
+        }
+        return "\(version)\(finalPath)"
     }
     
-    public init(types: [BackendEndpointType], version: BackendEndpointVersion, path: String) {
+    public init(types: [BackendEndpointType], version: BackendEndpointVersion, path: String, parameters: [String: String]) {
         self.types = types
         self.version = version
         self.path = path
+        self.parameters = parameters
     }
 }
 
