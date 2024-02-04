@@ -26,29 +26,22 @@ extension Backend {
             }
         }
         
-        let request: Result<DeleteAccountResponse, NetworkError>? = await Request.delete(
-            url: config.getEndpoint(for: .deleteUser),
+        let request: Result<DeleteAccountResponse, NetworkError> = await Request.delete(
+            url: self.getEndpoint(for: .deleteUser),
             authToken: user.token ?? "",
             debugMode: config.debugMode
         )
-        guard let request else {
-            await callback(.failure(config.getError(.AccountDeletionFailed) ?? K.SDKError.noAPIConnectionError))
-            return
-        }
         
         switch request {
         case .success(let response):
             if response.status == "success" {
                 await callback(.success(response))
             } else {
-                await callback(.failure(BackendError(
-                        type: .Custom,
-                        localizedDescription: response.message ?? K.SDKError.noAPIConnectionError.localizedDescription)
-                    )
+                await callback(.failure(self.getResponseError(ofType: .AccountDeletionFailed, fallbackMessage: response.message))
                 )
             }
         case .failure(let error):
-            await callback(.failure(BackendError(type: .Custom, localizedDescription: error.localizedDescription)))
+            await callback(.failure(self.getResponseError(ofType: .AccountDeletionFailed, fallbackMessage: error.localizedDescription)))
         }
     }
     

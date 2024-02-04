@@ -16,7 +16,7 @@ extension Backend {
         }
         
         let request: Result<LoginResponse, NetworkError> = await Request.post(
-            url: config.getEndpoint(for: .login),
+            url: self.getEndpoint(for: .login),
             body: LoginRequest(email: email, password: password),
             authToken: nil,
             debugMode: config.debugMode
@@ -40,15 +40,15 @@ extension Backend {
                                      )
                             ))
                         case .failure(let error):
-                            await callback(.failure(error))
+                            await callback(.failure(self.getResponseError(ofType: .LoginFailed, fallbackMessage: error.localizedDescription)))
                         }
                     }
                 } else {
-                    await callback(.failure(config.getError(BackendErrorType(rawValue: response.identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: response.message)))
+                    await callback(.failure(self.getResponseError(ofType: .LoginFailed, fallbackMessage: response.message)))
                 }
             }
-        case .failure(_):
-            await callback(.failure(K.SDKError.noAPIConnectionError))
+        case .failure(let error):
+            await callback(.failure(self.getResponseError(ofType: .LoginFailed, fallbackMessage: error.localizedDescription)))
         }
         
         

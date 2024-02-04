@@ -40,21 +40,14 @@ extension Backend {
                             await callback(.success(response))
                         case .failure(let error):
                             
-                            await callback(.failure(
-                                config!.getError(.SignInWithAppleFailed) ?? BackendError(type: .Custom, localizedDescription: error.localizedDescription))
-                            )
+                            await callback(.failure(self.getResponseError(ofType: .SignInWithAppleFailed, fallbackMessage: error.localizedDescription)))
                         }
                     }
             default:
-                await callback(.failure(
-                    config!.getError(.SignInWithAppleFailed) ?? K.SDKError.noAPIConnectionError)
-                )
+                await callback(.failure(self.getResponseError(ofType: .SignInWithAppleFailed, fallbackMessage: nil)))
             }
         case .failure(let error):
-            print("Sign In With Apple authorisation failed: \(error.localizedDescription)")
-            await callback(.failure(
-                config!.getError(.SignInWithAppleFailed) ?? K.SDKError.noAPIConnectionError)
-            )
+            await callback(.failure(self.getResponseError(ofType: .SignInWithAppleFailed, fallbackMessage: error.localizedDescription)))
         }
     }
     

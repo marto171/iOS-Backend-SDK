@@ -16,7 +16,7 @@ extension Backend {
         }
         
         let request: Result<ResendConfirmEmailResponse, NetworkError> = await Request.post(
-            url: config.getEndpoint(for: .resendConfirmEmail),
+            url: self.getEndpoint(for: .resendConfirmEmail),
             body: ResendConfirmEmailRequest(email: email),
             authToken: nil,
             debugMode: config.debugMode
@@ -28,10 +28,10 @@ extension Backend {
             case "success":
                 await callback(.success(response))
             default:
-                await callback(.failure(config.getError(BackendErrorType(rawValue: response.identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: response.message)))
+                await callback(.failure(self.getResponseError(ofType: .ConfirmEmailResendFailed, fallbackMessage: response.message)))
             }
-        case .failure(_):
-            await callback(.failure(K.SDKError.noAPIConnectionError))
+        case .failure(let error):
+            await callback(.failure(self.getResponseError(ofType: .ConfirmEmailResendFailed, fallbackMessage: error.localizedDescription)))
         }
     }
 }

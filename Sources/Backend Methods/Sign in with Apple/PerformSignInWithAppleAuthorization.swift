@@ -84,7 +84,7 @@ extension Backend {
             )
         
         let request: Result<SignInWithAppleResponse, NetworkError> = await Request.post(
-            url: config.getEndpoint(for: .signInWithApple),
+            url: self.getEndpoint(for: .signInWithApple),
             body: body,
             authToken: nil,
             debugMode: config.debugMode
@@ -97,26 +97,26 @@ extension Backend {
                 await callback(.success(response))
                 return .success(Void())
             } else {
-                let backendError = config.getError(.SignInWithAppleFailed) ?? BackendError(type: .Custom, localizedDescription: response.message ?? "")
+                let responseError = self.getResponseError(ofType: .SignInWithAppleFailed, fallbackMessage: response.message)
                 cacheData(userId: userId,
                           name: name,
                           email: email,
                           status: status
                 )
                 
-                await callback(.failure(backendError))
-                return .failure(backendError)
+                await callback(.failure(responseError))
+                return .failure(responseError)
             }
         case .failure(let error):
-            let backendError = config.getError(.SignInWithAppleFailed) ?? BackendError(type: .Custom, localizedDescription: error.localizedDescription)
+            let responseError = self.getResponseError(ofType: .SignInWithAppleFailed, fallbackMessage: error.localizedDescription)
             cacheData(userId: userId,
                       name: name,
                       email: email,
                       status: status
             )
             
-            await callback(.failure(backendError))
-            return .failure(backendError)
+            await callback(.failure(responseError))
+            return .failure(responseError)
         }
         
     }
@@ -145,15 +145,11 @@ extension Backend {
             case .success(_):
                 KeychainManager.deleteFromKeychain(service: config!.bundleId, account: "signInWithAppleCredential")
             case .failure(let error):
-                await callback(.failure(
-                    config!.getError(.SignInWithAppleFailed) ?? BackendError(type: .Custom, localizedDescription: error.localizedDescription))
-                )
+                await callback(.failure(self.getResponseError(ofType: .SignInWithAppleFailed, fallbackMessage: error.localizedDescription)))
             }
         }
         
-        await callback(.failure(
-            config!.getError(.SignInWithAppleFailed) ?? K.SDKError.noAPIConnectionError)
-        )
+        await callback(.failure(self.getResponseError(ofType: .SignInWithAppleFailed, fallbackMessage: nil)))
         
     }
     

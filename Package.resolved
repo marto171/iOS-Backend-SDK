@@ -51,7 +51,7 @@
       "location" : "https://github.com/ikok07/NetworkRequests.git",
       "state" : {
         "branch" : "main",
-        "revision" : "5d9b39e5e0bb59b9eb5a9b638010044600ab8149"
+        "revision" : "aa76a39784b96219be6023ff89856007f9376c17"
       }
     },
     {
@@ -78,7 +78,7 @@
       "location" : "https://github.com/ikok07/Toolchain.git",
       "state" : {
         "branch" : "main",
-        "revision" : "3c2bab79db85e6334ce214ac0bf278e28a3019e6"
+        "revision" : "a0d8e14ce2f8218bce0f6e39d4b3ad9ff314586a"
       }
     }
   ],

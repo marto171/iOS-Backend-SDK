@@ -16,7 +16,7 @@ extension Backend {
         }
         
         let request: Result<ConfirmAuthResponse, NetworkError> = await Request.post(
-            url: config.getEndpoint(for: .requestResetPassword),
+            url: self.getEndpoint(for: .requestResetPassword),
             body: EmailAuthRequest(email: email),
             authToken: nil,
             debugMode: config.debugMode
@@ -28,10 +28,10 @@ extension Backend {
             case "success":
                 callback(.success(response))
             default:
-                callback(.failure(config.getError(BackendErrorType(rawValue: response.identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: response.message ?? K.SDKMessage.genericMessage)))
+                callback(.failure(self.getResponseError(ofType: .RequestResendPasswordFailed, fallbackMessage: response.message)))
             }
-        case .failure(_):
-            callback(.failure(K.SDKError.noAPIConnectionError))
+        case .failure(let error):
+            callback(.failure(self.getResponseError(ofType: .RequestResendPasswordFailed, fallbackMessage: error.localizedDescription)))
         }
         
         

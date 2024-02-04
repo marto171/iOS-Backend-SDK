@@ -16,7 +16,7 @@ extension Backend {
         }
         
         let request: Result<ChangePasswordResponse, NetworkError> = await Request.patch(
-            url: config.getEndpoint(for: .resetPasswordByCurrentOne),
+            url: self.getEndpoint(for: .resetPasswordByCurrentOne),
             body: SettingsChangePasswordRequest(currentPassword: password, newPassword: newPassword, newPasswordConfirm: newPasswordConfirm),
             authToken: authToken,
             debugMode: config.debugMode
@@ -28,10 +28,10 @@ extension Backend {
             case "success":
                 callback(.success(response))
             default:
-                callback(.failure(config.getError(BackendErrorType(rawValue: response.identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: response.message ?? K.SDKMessage.genericMessage)))
+                callback(.failure(self.getResponseError(ofType: .ResetPasswordByCurrentOneFailed, fallbackMessage: response.message)))
             }
-        case .failure(_):
-            callback(.failure(K.SDKError.noAPIConnectionError))
+        case .failure(let error):
+            callback(.failure(self.getResponseError(ofType: .ResetPasswordByCurrentOneFailed, fallbackMessage: error.localizedDescription)))
         }
         
         

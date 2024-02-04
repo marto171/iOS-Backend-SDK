@@ -16,7 +16,7 @@ extension Backend {
         }
         
         let request: Result<ConfirmAuthResponse, NetworkError> = await Request.patch(
-            url: config.getEndpoint(for: .resetPassword, parameters: ["token": token]),
+            url: self.getEndpoint(for: .resetPassword, parameters: ["token": token]),
             body: ResetPasswordRequest(email: email, password: password, passwordConfirm: confirmPassword, deviceToken: deviceToken, appSecurityTokenId: appSecurityTokenId),
             authToken: nil,
             debugMode: config.debugMode
@@ -28,10 +28,10 @@ extension Backend {
             case "success":
                 callback(.success(response))
             default:
-                callback(.failure(config.getError(BackendErrorType(rawValue: response.identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: response.message ?? K.SDKMessage.genericMessage)))
+                callback(.failure(self.getResponseError(ofType: .ResetPasswordFailed, fallbackMessage: response.message)))
             }
-        case .failure(_):
-            callback(.failure(K.SDKError.noAPIConnectionError))
+        case .failure(let error):
+            callback(.failure(self.getResponseError(ofType: .ResetPasswordFailed, fallbackMessage: error.localizedDescription)))
         }
         
     }

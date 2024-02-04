@@ -17,7 +17,7 @@ extension Backend {
         }
         
         let request: Result<BackendEmptyResponse, NetworkError> = await Request.post(
-            url: config.getEndpoint(for: .logout),
+            url: self.getEndpoint(for: .logout),
             body: LogoutRequest(deviceToken: deviceToken),
             authToken: userToken,
             debugMode: config.debugMode
@@ -28,10 +28,10 @@ extension Backend {
             if response.status == "success" {
                 await callback(.success(Void()))
             } else {
-                await callback(.failure(config.getError(.LogoutFailed) ?? K.SDKError.noAPIConnectionError))
+                await callback(.failure(self.getResponseError(ofType: .LogoutFailed, fallbackMessage: nil)))
             }
         case .failure(let error):
-            await callback(.failure(BackendError(type: .Custom, localizedDescription: error.localizedDescription)))
+            await callback(.failure(self.getResponseError(ofType: .LogoutFailed, fallbackMessage: error.localizedDescription)))
         }
     }
     

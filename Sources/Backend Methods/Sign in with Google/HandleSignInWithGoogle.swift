@@ -33,20 +33,17 @@ extension Backend {
             
             switch await sendTokenToServer(idToken) {
             case .success(let response):
-                await callback(.success(response))
+                if response.status == "success" {
+                    await callback(.success(response))
+                } else {
+                    await callback(.failure(self.getResponseError(ofType: .SignInWithGoogleFailed, fallbackMessage: response.message)))
+                }
             case .failure(let error):
-                await callback(.failure(config.getError(.SignInWithGoogleFailed) ?? BackendError(
-                    type: .Custom,
-                    localizedDescription: error.localizedDescription
-                )))
+                await callback(.failure(self.getResponseError(ofType: .SignInWithGoogleFailed, fallbackMessage: error.localizedDescription)))
             }
             
         } catch {
-            await callback(.failure(
-                config.getError(.SignInWithGoogleFailed) ?? BackendError(
-                    type: .Custom,
-                    localizedDescription: "Error signing in with Google: \(error.localizedDescription)"
-                )))
+            await callback(.failure(self.getResponseError(ofType: .SignInWithGoogleFailed, fallbackMessage: error.localizedDescription)))
         }
         
     }
@@ -54,7 +51,7 @@ extension Backend {
     private func sendTokenToServer(_ token: String) async -> Result<SignInWithGoogleResponse, NetworkError> {
         
         let request: Result<SignInWithGoogleResponse, NetworkError>? = await Request.post(
-            url: config!.getEndpoint(for: .signInWithGoogle),
+            url: self.getEndpoint(for: .signInWithGoogle),
             body: SignInWithGoogleRequest(idToken: token),
             authToken: nil,
             debugMode: config!.debugMode

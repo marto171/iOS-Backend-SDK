@@ -16,7 +16,7 @@ extension Backend {
         }
         
         let request: Result<SignUpResponse, NetworkError> = await Request.post(
-            url: config.getEndpoint(for: .signup),
+            url: self.getEndpoint(for: .signup),
             body: SignUpRequest(
                 name: name,
                 email: email,
@@ -34,10 +34,10 @@ extension Backend {
             case "success":
                 await callback(.success(response))
             default:
-                await callback(.failure(config.getError(BackendErrorType(rawValue: response.identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: response.message)))
+                await callback(.failure(self.getResponseError(ofType: .SignUpFailed, fallbackMessage: response.message)))
             }
-        case .failure(_):
-            await callback(.failure(K.SDKError.noAPIConnectionError))
+        case .failure(let error):
+            await callback(.failure(self.getResponseError(ofType: .SignUpFailed, fallbackMessage: error.localizedDescription)))
         }
         
         

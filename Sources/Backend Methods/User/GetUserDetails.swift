@@ -18,7 +18,7 @@ extension Backend {
         }
         
         let request: Result<GetUserDetailsResponse, NetworkError> = await Request.get(
-            url: config.getEndpoint(for: .getUserDetails, parameters: ["userId": userId]),
+            url: self.getEndpoint(for: .getUserDetails, parameters: ["userId": userId]),
             authToken: authToken,
             debugMode: config.debugMode
         )
@@ -29,10 +29,10 @@ extension Backend {
             case "success":
                 await callback(.success(response))
             default:
-                await callback(.failure(config.getNormalRequestError(identifier: response.identifier, message: response.message)))
+                await callback(.failure(self.getResponseError(ofType: .NoUserDetails, fallbackMessage: response.message)))
             }
-        case .failure(_):
-            await callback(.failure(K.SDKError.noAPIConnectionError))
+        case .failure(let error):
+            await callback(.failure(self.getResponseError(ofType: .UserNotFound, fallbackMessage: error.localizedDescription)))
         }
     }
     

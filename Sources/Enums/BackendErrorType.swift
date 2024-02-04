@@ -11,24 +11,38 @@ public enum BackendErrorType: String, Error {
     // Custom errors (mainly from the API)
     case Custom
     
-    // Errors that don't need to be handled
-    case EmailNotVerified
     
-    // Errors that need to be handled in the configuration
-    case IncorrectCredentials
-    case EmailAlreadyExists
+    // User
     case UserNotFound
-    case InvalidToken
-    case EmailAlreadyConfirmed
-    case NoEmailOrPassword
-    case NoPermission
-    case NotLoggedIn
-    case RecentlyChangedPassword
-    case InvalidId
+    case AccountDeletionFailed
     case NoUserDetails
     case CannotSaveUserDetails
+    
+    // MARK: - Auth
+    case IncorrectCredentials
+    case NoEmailOrPassword
+    
+    // Login
+    case LoginFailed
+    case LoginConfirmFailed
     case SignInWithAppleFailed
     case SignInWithGoogleFailed
-    case AccountDeletionFailed
     case LogoutFailed
+    
+    // Sign Up
+    case SignUpFailed
+    case EmailAlreadyExists
+    case EmailConfirmFailed
+    case EmailAlreadyConfirmed
+    case ConfirmEmailResendFailed
+    
+    // Reset Password
+    case RequestResendPasswordFailed
+    case ResetPasswordFailed
+    case ResetPasswordByCurrentOneFailed
+    
+    case RecentlyChangedPassword
+    
+    
+    
 }

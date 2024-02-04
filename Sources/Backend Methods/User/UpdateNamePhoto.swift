@@ -18,7 +18,7 @@ extension Backend {
         
         let request: Result<ProfileDataResponse, NetworkError> = await Request.formData(
             httpMethod: "PATCH",
-            url: config.getEndpoint(for: .updateUser),
+            url: self.getEndpoint(for: .updateUser),
             json: name.data(using: .utf8)!,
             image: image,
             authToken: authToken,
@@ -31,19 +31,11 @@ extension Backend {
             case "success":
                 return await callback(.success(response));
             default:
-                await callback(.failure(
-                    config.getError(.CannotSaveUserDetails)
-                    ??
-                    BackendError(type: .CannotSaveUserDetails, localizedDescription: "User details could not be saved. Please try again!")
-                ))
+                await callback(.failure(self.getResponseError(ofType: .CannotSaveUserDetails, fallbackMessage: response.message)))
             }
         case .failure(let error):
             print("Form data error: \(error.rawValue)")
-            await callback(.failure(
-                config.getError(.CannotSaveUserDetails)
-                ??
-                BackendError(type: .CannotSaveUserDetails, localizedDescription: "User details could not be saved. Please try again!")
-            ))
+            await callback(.failure(self.getResponseError(ofType: .CannotSaveUserDetails, fallbackMessage: error.localizedDescription)))
         }
         
     }

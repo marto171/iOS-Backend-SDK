@@ -30,44 +30,6 @@ public struct BackendConfig {
         }
     }
     
-    // Endpoints
-    public func getEndpoint(for endpointType: BackendEndpointType, parameters: [String: String]? = nil) -> String {
-        var endpoint = self.backendUrls.endpoints.first(where: { $0.types.contains(endpointType) })
-        if var endpoint {
-            endpoint.parameters = parameters
-            return "\(self.backendUrls.baseUrl)\(self.backendUrls.constantPrefix ?? "")\(endpoint.string)"
-        } else {
-            fatalError("NO URL OF TYPE: \(endpointType) FOUND. YOU NEED TO ADD IT IN THE BACKEND CONFIG OBJECT!")
-        }
-    }
-    
-    
-    //Errors
-    @MainActor
-    public func getError(_ type: BackendErrorType?) -> BackendError<String>? {
-        guard let type, let config = Backend.shared.config else {
-            return nil
-        }
-        
-        if !errors.isEmpty {
-            let errorsNotLocalized = errors.first(where: { $0.type == type })?.localizedDescription
-            
-            if let errorsNotLocalized {
-                let error = errorsNotLocalized.first(where: { $0.language == config.language })
-                
-                if let error = error {
-                    return BackendError(type: type, localizedDescription: error.localizedDescription)
-                }
-            }
-        }
-        return nil
-    }
-    
-    @MainActor
-    public func getNormalRequestError(identifier: String?, message: String?) -> BackendError<String> {
-        return getError(BackendErrorType(rawValue: identifier ?? "")) ?? BackendError(type: .Custom, localizedDescription: message ?? K.SDKMessage.genericMessage)
-    }
-    
     public init(
         debugMode: Bool = false,
         bundleId: String,

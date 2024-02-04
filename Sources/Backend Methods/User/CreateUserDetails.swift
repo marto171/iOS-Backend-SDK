@@ -18,7 +18,7 @@ extension Backend {
         }
         
         let request: Result<CreateUserDetailsResponse, NetworkError> = await Request.post(
-            url: config.getEndpoint(for: .createUserDetails, parameters: ["userId": userId]),
+            url: self.getEndpoint(for: .createUserDetails, parameters: ["userId": userId]),
             body: CreateUserDetailsRequest(userId: userId),
             authToken: token,
             debugMode: config.debugMode
@@ -30,11 +30,10 @@ extension Backend {
             case "success":
                 callback(.success(response))
             default:
-                callback(.failure(config.getNormalRequestError(identifier: response.identifier, message: response.message)))
+                callback(.failure(self.getResponseError(ofType: .CannotSaveUserDetails, fallbackMessage: response.message)))
             }
         case .failure(let error):
-            print("Error creating user details: \(error)")
-            callback(.failure(K.SDKError.noAPIConnectionError))
+            callback(.failure(self.getResponseError(ofType: .CannotSaveUserDetails, fallbackMessage: error.localizedDescription)))
         }
     }
     
