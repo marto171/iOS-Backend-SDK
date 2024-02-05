@@ -9,9 +9,9 @@ import Foundation
 import NetworkRequests
 
 extension Backend {
-    public func getUser(authToken: String, callback: (Result<GetUserDataResponse, BackendError<String>>) -> Void) async {
+    public func getUser(authToken: String, callback: (Result<GetUserDataResponse, BackendError<String>>) async -> Void) async {
         guard let config = self.config else {
-            callback(.failure(K.SDKError.noConfigError))
+            await callback(.failure(K.SDKError.noConfigError))
             return
         }
         
@@ -25,12 +25,12 @@ extension Backend {
         case .success(let response):
             switch response.status {
             case "success":
-                return callback(.success(response));
+                return await callback(.success(response));
             default:
-                callback(.failure(self.getResponseError(ofType: .UserNotFound, fallbackMessage: response.message)))
+                await callback(.failure(self.getResponseError(ofType: .UserNotFound, fallbackMessage: response.message)))
             }
         case .failure(let error):
-            callback(.failure(self.getResponseError(ofType: .UserNotFound, fallbackMessage: error.localizedDescription)))
+            await callback(.failure(self.getResponseError(ofType: .UserNotFound, fallbackMessage: error.localizedDescription)))
         }
     }
 }
