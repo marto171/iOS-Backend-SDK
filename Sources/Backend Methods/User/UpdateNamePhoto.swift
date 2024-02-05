@@ -34,7 +34,7 @@ extension Backend {
                 await callback(.failure(self.getResponseError(ofType: .CannotSaveUserDetails, fallbackMessage: response.message)))
             }
         case .failure(let error):
-            print("Form data error: \(error.rawValue)")
+            print("Form data error: \(error.localizedDescription)")
             await callback(.failure(self.getResponseError(ofType: .CannotSaveUserDetails, fallbackMessage: error.localizedDescription)))
         }
         
